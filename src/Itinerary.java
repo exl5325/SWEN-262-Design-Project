@@ -4,10 +4,13 @@ import java.util.List;
  * Created by calvinclark on 10/8/17.
  */
 public class Itinerary implements FlightInterface {
-    private List<Flight> flights;
+    private List<FlightInterface> flights;
+    public Itinerary(List<FlightInterface> flights){
+
+    }
     public int getAirfare() {
         int sum = 0;
-        for(Flight f : flights) {
+        for(FlightInterface f : flights) {
             sum += f.getAirfare();
         }
         return sum;
@@ -17,5 +20,14 @@ public class Itinerary implements FlightInterface {
     }
     public String getDepartureTime(){
         return flights.get(flights.size()-1).getDepartureTime();
+    }
+    public String getOrigin() {
+        return flights.get(0).getOrigin();
+    }
+    public String getDestination() {
+        return flights.get(flights.size()-1).getDestination();
+    }
+    public int getConnections() {
+        return flights.size() - 1;
     }
 }
