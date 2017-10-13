@@ -5,11 +5,12 @@ import java.util.List;
  */
 public class Airport {
     private String airportCode;
+    private String name;
     private int delayTime;
-    private List<String> weather;
+    private String[] weather;
     private int weatherIndex = 0;
 
-    public Airport(String airportCode, int delayTime, List<String> weather) {
+    public Airport(String airportCode, String name, int delayTime, String[] weather) {
         this.airportCode = airportCode;
         this.delayTime = delayTime;
         this.weather = weather;
@@ -20,8 +21,8 @@ public class Airport {
     }
 
     public String getWeather() {
-        String currentWeather = weather.get(weatherIndex);
-        weatherIndex = (weatherIndex+1)%weather.size();
+        String currentWeather = weather[weatherIndex];
+        weatherIndex = (weatherIndex+1)%weather.length;
         return currentWeather;
     }
 }
