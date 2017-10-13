@@ -13,4 +13,18 @@ public class Reservation {
     public String getPassenger(){
         return passenger;
     }
+
+    public String getOrigin() {
+        return itinerary.getOrigin();
+    }
+
+    public String getDestination() {
+        return itinerary.getDestination();
+    }
+    public boolean sameReservation(String passenger, String origin, String destination){
+        if(getPassenger().equals(passenger) && getOrigin().equals(origin) && getDestination().equals(destination)){
+            return true;
+        }
+        return false;
+    }
 }

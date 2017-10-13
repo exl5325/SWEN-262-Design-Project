@@ -27,4 +27,10 @@ public class Flight implements FlightInterface {
     public String getDepartureTime() {
         return departureTime;
     }
+    public String getOrigin() {
+        return departure;
+    }
+    public String getDestination() {
+        return arrival;
+    }
 }
