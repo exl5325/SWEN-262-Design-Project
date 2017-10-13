@@ -5,8 +5,8 @@ import java.util.HashMap;
  */
 public class AirportDB {
     private HashMap<String, Airport> airports;
-    public AirportDB(){
-        airports = new HashMap<>();
+    public AirportDB(HashMap<String, Airport> airports){
+        this.airports = airports;
     }
     public Airport findAirport(String code){
         return airports.get(code);

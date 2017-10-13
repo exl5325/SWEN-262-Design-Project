@@ -7,8 +7,9 @@ import java.util.List;
 public class FlightDB {
     private List<Flight> flights;
     private List<Itinerary> itineraries;
-    public FlightDB(){
-        flights = new ArrayList<>();
+    public FlightDB(List<Flight> flights, List<Itinerary> itineraries){
+        this.flights = flights;
+        this.itineraries = itineraries;
     }
     public List<Itinerary> findItineraries(String origin, String destination, int numConnections, String sortOrder){
         List<Itinerary> foundItineraries = new ArrayList<>();
