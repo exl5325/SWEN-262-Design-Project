@@ -8,12 +8,14 @@ public class MakeReservationRequest implements Request {
     private ReservationDB resDatabase;
     private FlightDB itinDatabase;
 
-    private String passenger;
+    private String passenger, origin, destination;
     private int id;
 
-    public MakeReservationRequest(String passenger, int id){
+    public MakeReservationRequest(String passenger, int id, String origin, String destination){
         this.passenger = passenger;
         this.id = id;
+        this.destination = destination;
+        this.origin = origin;
     }
 
     @Override
@@ -22,8 +24,7 @@ public class MakeReservationRequest implements Request {
         //TODO create the reservation? will it be passed in?
 
         List<Reservation> reservations = new ArrayList<Reservation>();
-        for(Reservation res:resDatabase.findReservations(passenger, "fill in later!", "fill in later!")) {
-                                                                                    //TODO fill in ^
+        for(Reservation res:resDatabase.findReservations(passenger, origin, destination)) {
             if (itinDatabase.checkID(res.getItinerary().getID()).size() == 0)
                 return new SimpleResponse("error,invalid id");
             reservations.add(res);

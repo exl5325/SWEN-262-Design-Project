@@ -7,11 +7,18 @@ public class GetReservationsResponse implements Response {
 
     private Reservation reservation;
 
-    public GetReservationsResponse(){
+    public GetReservationsResponse(Reservation reservation){
+        this.reservation = reservation;
     }
 
     @Override
     public String outputData() {
-        return null;
+        Itinerary itinerary = reservation.getItinerary();
+        if(itinerary == null)
+            return "retrieve,0";
+        return "retrive,1<nl>" + itinerary.getAirfare() + "," + itinerary.getConnections() + "," +
+                          //TODO add flight number
+                          itinerary.getOrigin() + "," + itinerary.getDepartureTime() + "," + itinerary.getDestination()
+                          + "," + itinerary.getArrivalTime();
     }
 }
