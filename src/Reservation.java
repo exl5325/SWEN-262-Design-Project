@@ -10,8 +10,10 @@ public class Reservation {
         this.itinerary = itinerary;
     }
 
-    public String getPassenger(){
-        return passenger;
+    public String getPassenger(){ return passenger; }
+
+    public Itinerary getItinerary(){
+        return itinerary;
     }
 
     public String getOrigin() {

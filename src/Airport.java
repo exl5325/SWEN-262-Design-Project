@@ -19,6 +19,8 @@ public class Airport {
     public String getAirportCode(){
         return airportCode;
     }
+    public String getName() { return name; }
+    public int getDelay() { return delayTime; }
 
     public String getWeather() {
         String currentWeather = weather[weatherIndex];

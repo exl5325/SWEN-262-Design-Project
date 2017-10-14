@@ -11,6 +11,17 @@ public class FlightDB {
         this.flights = flights;
         this.itineraries = itineraries;
     }
+
+    public List<Itinerary> checkID(int id){
+        List<Itinerary> foundItineraries = new ArrayList<>();
+        for (Itinerary i : itineraries){
+            if (i.getID() == id){
+                foundItineraries.add(i);
+            }
+        }
+        return foundItineraries;
+    }
+
     public List<Itinerary> findItineraries(String origin, String destination, int numConnections, String sortOrder){
         List<Itinerary> foundItineraries = new ArrayList<>();
         if (numConnections <= 2) {
