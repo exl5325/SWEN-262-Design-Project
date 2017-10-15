@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ public class FlightDB {
 
     public List<Itinerary> findItineraries(String origin, String destination, int numConnections, String sortOrder){
         List<Itinerary> foundItineraries = new ArrayList<>();
+        Comparator<FlightInterface> comparator;
         if (numConnections <= 2) {
             for (Itinerary i : itineraries){
                 if (i.getOrigin().equals(origin) && i.getDestination().equals(destination)
@@ -32,6 +34,16 @@ public class FlightDB {
                 }
             }
         }
+        if(sortOrder.equals("arrival")){
+            comparator = new ArrivalTimeComparator();
+        }
+        else if (sortOrder.equals("airfare")){
+            comparator = new AirfareComparator();
+        }
+        else {
+            comparator = new DepartureTimeComparator();
+        }
+        foundItineraries.sort(comparator);
         return foundItineraries;
     }
 
