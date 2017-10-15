@@ -5,9 +5,7 @@ import java.util.List;
  */
 public class Itinerary implements FlightInterface {
     private List<FlightInterface> flights;
-    private int ID;
-    public Itinerary(List<FlightInterface> fs, int id){
-        ID = id;
+    public Itinerary(List<FlightInterface> fs){
         flights = fs;
     }
     public int getAirfare() {
@@ -17,7 +15,6 @@ public class Itinerary implements FlightInterface {
         }
         return sum;
     }
-    public int getID(){ return ID; }
     public String getArrivalTime(){
         return flights.get(0).getArrivalTime();
     }

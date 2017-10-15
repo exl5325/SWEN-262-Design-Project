@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,11 +8,16 @@ public class DBFacade {
     private AirportDB airports;
     private FlightDB flights;
     private ReservationDB reservations;
+    private List<Itinerary> itineraries;
 
     public DBFacade(){
         airports = new AirportDB();
         flights = new FlightDB();
         reservations = new ReservationDB();
+    }
+
+    public Itinerary checkID(int id){
+        return itineraries.get(id);
     }
 
     //AirportDB methods
@@ -23,11 +29,9 @@ public class DBFacade {
     }
 
     //FlightDB methods
-    List<Itinerary> checkID(int id){
-        return flights.checkID(id);
-    }
     public List<Itinerary> findItineraries(String origin, String destination, int numConnections, String sortOrder){
-        return flights.findItineraries(origin, destination, numConnections, sortOrder);
+        itineraries = flights.findItineraries(origin, destination, numConnections, sortOrder);
+        return itineraries;
     }
 
     //ReservationDB methods
