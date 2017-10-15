@@ -13,12 +13,15 @@ public class GetReservationsResponse implements Response {
 
     @Override
     public String outputData() {
-        Itinerary itinerary = reservation.getItinerary();
-        if(itinerary == null)
-            return "retrieve,0";
-        return "retrive,1<nl>" + itinerary.getAirfare() + "," + itinerary.getConnections() + "," +
-                          //TODO add flight number
-                          itinerary.getOrigin() + "," + itinerary.getDepartureTime() + "," + itinerary.getDestination()
-                          + "," + itinerary.getArrivalTime();
+        String response = "retrieve,";
+        for(Reservation res:reservation){
+            Itinerary itinerary = res.getItinerary();
+            response = response + "\n" + itinerary.getAirfare() + "," + itinerary.getConnections();
+            for(FlightInterface flight:itinerary.flights) {
+                response = response + "," + flight.getFlightNumber() + "," + flight.getOrigin() + "," +
+                        flight.getDepartureTime() + "," + flight.getDestination() + "," + flight.getArrivalTime();
+            }
+        }
+        return  response;
     }
 }

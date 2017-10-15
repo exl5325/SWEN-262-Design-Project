@@ -1,0 +1,4 @@
+# git ignore for project
+
+.idea/
+.DS_Store

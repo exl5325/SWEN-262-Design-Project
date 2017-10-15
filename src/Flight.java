@@ -33,4 +33,7 @@ public class Flight implements FlightInterface {
     public String getDestination() {
         return arrival;
     }
+    public String getFlightNumber() {
+        return flightNumber;
+    }
 }

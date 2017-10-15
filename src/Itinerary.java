@@ -1,15 +1,22 @@
 import java.util.List;
 
 /**
+ * Contains several instances of FlightInterface.  Treats combined flights as a single FlightInterface.
+ *
  * Created by calvinclark on 10/8/17.
  */
 public class Itinerary implements FlightInterface {
-    private List<FlightInterface> flights;
-    private int ID;
-    public Itinerary(List<FlightInterface> fs, int id){
-        ID = id;
+    public List<FlightInterface> flights;
+
+
+    public Itinerary(List<FlightInterface> fs){
         flights = fs;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getAirfare() {
         int sum = 0;
         for(FlightInterface f : flights) {
@@ -17,7 +24,6 @@ public class Itinerary implements FlightInterface {
         }
         return sum;
     }
-    public int getID(){ return ID; }
     public String getArrivalTime(){
         return flights.get(0).getArrivalTime();
     }
@@ -32,5 +38,13 @@ public class Itinerary implements FlightInterface {
     }
     public int getConnections() {
         return flights.size() - 1;
+    }
+    public String getFlightNumber() {
+        String fn = "";
+        for(FlightInterface flight:flights){
+            fn = fn + flight.getFlightNumber() + ",";
+        }
+        fn = fn.substring(0, fn.length() - 1);
+        return fn;
     }
 }
