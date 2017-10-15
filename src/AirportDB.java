@@ -43,11 +43,11 @@ public class AirportDB {
         String timeKey = "minutes";
 
         CSVCoder coder = new CSVCoder();
-        Map<String, Map<String, String>> airportData = coder.readMapFromFile("airports",
+        Map<String, Map<String, String>> airportData = coder.readMapFromFile("src/airports",
                 new String[]{airportCodeKey, cityKey});
-        Map<String, Map<String, String>> delayData = coder.readMapFromFile("delays",
+        Map<String, Map<String, String>> delayData = coder.readMapFromFile("src/delays",
                 new String[]{airportCodeKey, timeKey});
-        Map<String, Map<String, String>> weatherData = coder.readMapFromFile("weather",
+        Map<String, Map<String, String>> weatherData = coder.readMapFromFile("src/weather",
                 new String[]{airportCodeKey});
 
         for (Map<String, String> airportHash : airportData.values()) {
