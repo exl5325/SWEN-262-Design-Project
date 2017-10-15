@@ -6,15 +6,13 @@ import java.util.List;
 public class GetReservationRequest implements Request {
 
     private String passenger, origin, destination;
-    private ReservationDB db;
-    private AirportDB airports;
+    private DBFacade db;
 
-    public GetReservationRequest(String passenger, String origin, String destination, ReservationDB db, AirportDB airports){
+    public GetReservationRequest(String passenger, String origin, String destination, DBFacade db){
         this.passenger = passenger;
         this.origin = origin;
         this.destination = destination;
         this.db = db;
-        this.airports = airports;
     }
 
     @Override
