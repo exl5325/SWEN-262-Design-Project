@@ -7,8 +7,6 @@ import java.util.List;
  */
 public class Itinerary implements FlightInterface {
     public List<FlightInterface> flights;
-
-
     public Itinerary(List<FlightInterface> fs){
         flights = fs;
     }
