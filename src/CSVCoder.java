@@ -29,16 +29,37 @@ public class CSVCoder {
      */
     public CSVCoder() {}
 
+    /**
+     * Writes the map as a CSV file
+     *
+     * @param map: A Map of arbitrary keys and a list for each line item.
+     * @param filename: The name of the file, minus the extension.
+     * @return True iff the save occurred successfully.
+     */
     public boolean writeToFile(Map<String, List<String>> map, String filename) {
         String csvString = csvStringFromMap(map);
         return writeToFile(csvString, filename);
     }
 
+    /**
+     * Writes the list as a CSV file
+     *
+     * @param list: A List of lists for each line item.
+     * @param filename: The name of the file, minus the extension.
+     * @return True iff the save occurred successfully.
+     */
     public boolean writeToFile(List<List<String>> list, String filename) {
         String csvString = csvStringFromList(list);
         return writeToFile(csvString, filename);
     }
 
+    /**
+     * Writes the string to disk with the given file name.
+     *
+     * @param string: The string to write.
+     * @param filename: The name of the file, minus the extension.
+     * @return True iff the save occurred successfully.
+     */
     private boolean writeToFile(String string, String filename) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename + ".txt"));
@@ -50,11 +71,23 @@ public class CSVCoder {
         }
     }
 
+    /**
+     * Creates a CSV file string from the Map.
+     *
+     * @param map: A Map of arbitrary keys and a list for each line item.
+     * @return A CSV file as a string.
+     */
     private String csvStringFromMap(Map<String, List<String>> map) {
         List<List<String>> list = new ArrayList<>(map.values());
         return csvStringFromList(list);
     }
 
+    /**
+     * Creates a CSV file string from the List.
+     *
+     * @param list: A List of lists for each line item.
+     * @return A CSV file as a string.
+     */
     private String csvStringFromList(List<List<String>> list) {
         String csv = "";
 
@@ -66,10 +99,23 @@ public class CSVCoder {
         return csv;
     }
 
+    /**
+     * Returns a string representing the line of a CSV file for the given list of values.
+     *
+     * @param values: A list of values to comma-separate.
+     * @return A CSV line.
+     */
     private String lineFromValues(List<String> values) {
         return String.join(",", values);
     }
 
+    /**
+     * Reads a CSV file into a Map.
+     *
+     * @param filename: The name of the file, minus the file extension.
+     * @param keys: A List of hash keys corresponding to the expected CSV values.
+     * @return A map where keys are the first CSV value and values are another map mapping the passed keys to CSV values.
+     */
     public Map<String, Map<String, String>> readMapFromFile(String filename, String[] keys) {
         Scanner reader;
         try {
@@ -90,6 +136,13 @@ public class CSVCoder {
         return lines;
     }
 
+    /**
+     * Reads a CSV file into a 2D List.
+     *
+     * @param filename: The name of the file, minus the file extension.
+     * @param keys: A List of hash keys corresponding to the expected CSV values.
+     * @return A List of maps mapping the passed keys to CSV values.
+     */
     public List<Map<String, String>> readListFromFile(String filename, String[] keys) {
         Scanner reader;
         try {
@@ -107,6 +160,13 @@ public class CSVCoder {
         return lines;
     }
 
+    /**
+     * Reads a line of CSV text into a Map mapping keys to CSV values.
+     *
+     * @param string: The CSV line of text.
+     * @param keys: A List of hash keys corresponding to the expected CSV values.
+     * @return A Map mapping keys to CSV values.
+     */
     private Map<String, String> readLineFromString(String string, String[] keys) {
         String[] values = string.split(",");
 
