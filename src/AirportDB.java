@@ -35,7 +35,7 @@ public class AirportDB {
      * Creates Airport classes from a series of text files: "airports.txt", "delays.txt", and "weather.txt".  Stores
      * these Airports within the class.
      */
-    private void readAirports(){
+    private void _readAirports(){
         airports = new HashMap<>();
         try {
             Scanner airportReader = new Scanner(new File("airports.txt"));
@@ -55,6 +55,35 @@ public class AirportDB {
             }
         }
         catch (FileNotFoundException f) {
+        }
+    }
+
+    /**
+     * Creates Airport classes from a series of text files: "airports.txt", "delays.txt", and "weather.txt".  Stores
+     * these Airports within the class.
+     */
+    private void readAirports() {
+        airports = new HashMap<>();
+
+        String airportCodeKey = "airportCode";
+        String cityKey = "cityName";
+        String timeKey = "minutes";
+
+        CSVCoder coder = new CSVCoder();
+        Map<String, Map<String, String>> airportData = coder.readMapFromFile("airports",
+                new String[]{airportCodeKey, cityKey});
+        Map<String, Map<String, String>> delayData = coder.readMapFromFile("delays",
+                new String[]{airportCodeKey, timeKey});
+        Map<String, Map<String, String>> weatherData = coder.readMapFromFile("weather",
+                new String[]{airportCodeKey});
+
+        for (Map<String, String> airportHash : airportData.values()) {
+            String code = airportHash.get(airportCodeKey);
+            String name = airportHash.get(cityKey);
+            int delay = Integer.parseInt(delayData.get(code).get(timeKey));
+            String[] weather = weatherData.get(code).get("endingValues").split(",");
+            Airport airport = new Airport(code, name, delay, weather);
+            airports.put(code, airport);
         }
     }
 }
