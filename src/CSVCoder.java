@@ -153,6 +153,9 @@ public class CSVCoder {
     /**
      * Reads a line of CSV text into a Map mapping keys to CSV values.
      *
+     * If there are more items in a line than keys in the key array, all remaining items
+     * will be bundled as a comma-separated String under the "endingValues" key.
+     *
      * @param string: The CSV line of text.
      * @param keys: A List of hash keys corresponding to the expected CSV values.
      * @return A Map mapping keys to CSV values.
@@ -161,12 +164,20 @@ public class CSVCoder {
         String[] values = string.split(",");
 
         Map<String, String> keyedValues = new HashMap<>();
+        List<String> extras = new ArrayList<>();
+
         int i = 1;
         for (String value : values) {
             if (keys.length >= i) {
                 keyedValues.put(keys[i - 1], value.trim());
+            } else {
+                extras.add(value.trim());
             }
             i++;
+        }
+
+        if (!extras.isEmpty()) {
+            keyedValues.put("endingValues", lineFromValues(extras));
         }
 
         return  keyedValues;
