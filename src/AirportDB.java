@@ -35,33 +35,6 @@ public class AirportDB {
      * Creates Airport classes from a series of text files: "airports.txt", "delays.txt", and "weather.txt".  Stores
      * these Airports within the class.
      */
-    private void _readAirports(){
-        airports = new HashMap<>();
-        try {
-            Scanner airportReader = new Scanner(new File("airports.txt"));
-            Scanner delayReader = new Scanner(new File("delays.txt"));
-            Scanner weatherReader = new Scanner(new File("weather.txt"));
-            while (airportReader.hasNext()){
-                String[] airportInfo = airportReader.nextLine().split(",");
-                if(airportInfo.length >= 4) {
-                    String code = airportInfo[0];
-                    String name = airportInfo[1];
-                    int delay = Integer.parseInt(delayReader.nextLine().split(",")[1]);
-                    String[] weatherLine = weatherReader.nextLine().split(",");
-                    String[] weather = Arrays.copyOfRange(weatherLine, 1, weatherLine.length - 1);
-                    Airport airport = new Airport(code, name, delay, weather);
-                    airports.put(code, airport);
-                }
-            }
-        }
-        catch (FileNotFoundException f) {
-        }
-    }
-
-    /**
-     * Creates Airport classes from a series of text files: "airports.txt", "delays.txt", and "weather.txt".  Stores
-     * these Airports within the class.
-     */
     private void readAirports() {
         airports = new HashMap<>();
 
