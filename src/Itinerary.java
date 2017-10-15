@@ -1,13 +1,22 @@
 import java.util.List;
 
 /**
+ * Contains several instances of FlightInterface.  Treats combined flights as a single FlightInterface.
+ *
  * Created by calvinclark on 10/8/17.
  */
 public class Itinerary implements FlightInterface {
-    private List<FlightInterface> flights;
+    public List<FlightInterface> flights;
+
+
     public Itinerary(List<FlightInterface> fs){
         flights = fs;
     }
+
+    /**
+     *
+     * @return
+     */
     public int getAirfare() {
         int sum = 0;
         for(FlightInterface f : flights) {
