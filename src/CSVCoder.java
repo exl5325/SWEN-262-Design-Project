@@ -13,16 +13,6 @@ import java.util.*;
  */
 public class CSVCoder {
 
-    /*
-     * If false (default), a Map of Maps will be used
-     * as the output for writing and input for reading for all methods.
-     * The first line item will be the key for the outer Map.
-     * The keys of each inner Map will be client-specified keys.
-     *
-     * If true, a List of Maps will be used instead,
-     * where the inner keys will be client-specified.
-     */
-
     /**
      * Creates a new CSVCoder that may be used for reading and writing
      * to and from CSV files.
