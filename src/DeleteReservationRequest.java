@@ -4,16 +4,19 @@
 public class DeleteReservationRequest implements Request {
 
     private String passenger, origin, destination;
+    private DBFacade db;
 
-    public DeleteReservationRequest(String passenger, String origin, String destination){
+    public DeleteReservationRequest(String passenger, String origin, String destination, DBFacade db){
         this.passenger = passenger;
         this.origin = origin;
         this.destination = destination;
+        this.db = db;
     }
 
     @Override
     public Response request() {
-        //TODO figure out how to keep track of if the reservation was present
-        return new SimpleResponse("delete,successful");
+        if(db.deleteReservation(passenger, origin, destination))
+            return new SimpleResponse("delete,successful");
+        return new SimpleResponse("error,reservation not found");
     }
 }
