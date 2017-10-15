@@ -23,7 +23,7 @@ public class GetReservationRequest implements Request {
         }
         Reservation reservation = reservations.get(0);
         Boolean org = false, dest = false;
-        for(Airport airport:airports.getAirports()){
+        for(Airport airport:db.getAirports()){
             if(airport.getName().equals(origin))
                 org = true;
             if(airport.getName().equals(destination))
