@@ -15,6 +15,7 @@ public class AirportInfoRequest implements Request{
     public Response request() {
         if(db.findAirport(airportCode)==null)
             return new SimpleResponse("error,unknown airport");
-        return new AirportInfoResponse(db.findAirport(airportCode));
+        return new SimpleResponse("airport," + db.findAirport(airportCode).getName() + "," +
+                db.findAirport(airportCode).getWeather() + "," + db.findAirport(airportCode).getDelay());
     }
 }
