@@ -120,7 +120,9 @@ public class CSVCoder {
         while (reader.hasNext()) {
             String line = reader.nextLine();
             Map<String, String> lineValues = readLineFromString(line, keys);
-            lines.put(lineValues.get(primaryKey), lineValues);
+            if (!lineValues.isEmpty()) {
+                lines.put(lineValues.get(primaryKey), lineValues);
+            }
         }
 
         return lines;
@@ -144,7 +146,10 @@ public class CSVCoder {
         List<Map<String, String>> lines = new ArrayList<>();
         while (reader.hasNext()) {
             String line = reader.nextLine();
-            lines.add(readLineFromString(line, keys));
+            Map<String, String> lineValues = readLineFromString(line, keys);
+            if (!lineValues.isEmpty()) {
+                lines.add(lineValues);
+            }
         }
 
         return lines;
