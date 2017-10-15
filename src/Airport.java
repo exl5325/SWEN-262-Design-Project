@@ -45,7 +45,7 @@ public class Airport {
 
     /**
      * Returns the minimum amount of time a passenger must spend at the airport.
-     * 
+     *
      * @return the minimum delay time
      */
     public int getDelay() {
