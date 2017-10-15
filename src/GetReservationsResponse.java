@@ -5,9 +5,9 @@ import java.util.List;
  */
 public class GetReservationsResponse implements Response {
 
-    private Reservation reservation;
+    private List<Reservation> reservation;
 
-    public GetReservationsResponse(Reservation reservation){
+    public GetReservationsResponse(List<Reservation> reservation){
         this.reservation = reservation;
     }
 

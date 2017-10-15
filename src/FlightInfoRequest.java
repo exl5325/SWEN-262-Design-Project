@@ -5,11 +5,11 @@ import java.util.List;
  * Created by peter.audier on 10/8/2017.
  */
 public class FlightInfoRequest implements Request {
-    private FlightDB db;
+    private DBFacade db;
     private String origin,destination,sortOrder;
     private int numConnections;
 
-    public FlightInfoRequest(String origin, String destination, String sortOrder, int numConnections, FlightDB db){
+    public FlightInfoRequest(String origin, String destination, String sortOrder, int numConnections, DBFacade db){
         this.origin = origin;
         this.destination = destination;
         this.sortOrder = sortOrder;
@@ -29,6 +29,7 @@ public class FlightInfoRequest implements Request {
                 return new SimpleResponse("error,invalid connection limit");
             if (itinerary.getDestination() == null)
                 return new SimpleResponse("error,unknown destination");
+            if ()
             //TODO add for if sorting method is invalid (error,invalid sort order)
         }
 
