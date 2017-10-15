@@ -16,11 +16,14 @@ public class FlightInfoResponse implements Response {
         String response = "info," + itineraries.size();
         if(itineraries.size()==0)
             return response;
+        int i = 0;
         for(Itinerary itinerary:itineraries){
-            response = response + "<nl>" + itinerary.getID() + itinerary.getAirfare() + "," + itinerary.getConnections() + "," +
-                       //TODO add flight number
-                       itinerary.getOrigin() + "," + itinerary.getDepartureTime() + "," + itinerary.getDestination() +
-                       "," + itinerary.getArrivalTime();
+            i++;
+            response = response + "\n" + i + "," + itinerary.getAirfare() + "," + itinerary.getConnections();
+            for(FlightInterface flight:itinerary.flights) {
+                response = response + "," + flight.getFlightNumber() + "," + flight.getOrigin() + "," +
+                        flight.getDepartureTime() + "," + flight.getDestination() + "," + flight.getArrivalTime();
+            }
         }
         return response;
     }

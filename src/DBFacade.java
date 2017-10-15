@@ -21,7 +21,7 @@ public class DBFacade {
     public Airport findAirport(String code){
         return airports.findAirport(code);
     }
-    public List<Airport> getAirports(){
+    public List<Airport> getAirports() {
         return airports.getAirports();
     }
 
