@@ -1,7 +1,8 @@
-import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Requests information from contained databases.  Holds most recent reservations for itinerary creation.
+ *
  * Created by calvinclark on 10/8/17.
  */
 public class DBFacade {
@@ -14,10 +15,6 @@ public class DBFacade {
         airports = new AirportDB();
         flights = new FlightDB();
         reservations = new ReservationDB();
-    }
-
-    public Itinerary checkID(int id){
-        return itineraries.get(id);
     }
 
     //AirportDB methods
@@ -35,8 +32,8 @@ public class DBFacade {
     }
 
     //ReservationDB methods
-    public boolean createReservation(String passenger, Itinerary itinerary){
-        return reservations.createReservation(passenger, itinerary);
+    public boolean createReservation(String passenger, int id){
+        return reservations.createReservation(passenger, itineraries.get(id));
     }
     public boolean deleteReservation(String passenger, String origin, String destination) {
         return reservations.deleteReservation(passenger, origin, destination);
