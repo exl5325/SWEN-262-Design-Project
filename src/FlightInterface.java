@@ -7,4 +7,5 @@ public interface FlightInterface {
     String getDepartureTime();
     String getOrigin();
     String getDestination();
+    String getFlightNumber();
 }

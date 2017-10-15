@@ -39,4 +39,12 @@ public class Itinerary implements FlightInterface {
     public int getConnections() {
         return flights.size() - 1;
     }
+    public String getFlightNumber() {
+        String fn = "";
+        for(FlightInterface flight:flights){
+            fn = fn + flight.getFlightNumber() + ",";
+        }
+        fn = fn.substring(0, fn.length() - 1);
+        return fn;
+    }
 }
