@@ -15,9 +15,9 @@ public class Shell {
 
     private Scanner scanner = new Scanner(System.in);
 
-    public RequestResponseParser parser;
+    public RequestParser parser;
 
-    public Shell(RequestResponseParser parser) {
+    public Shell(RequestParser parser) {
         this.parser = parser;
     }
 
