@@ -35,7 +35,7 @@ public class FlightDB {
                     List<FlightInterface> oneFlight = new ArrayList<>();
                     oneFlight.add(f1);
                     foundItineraries.add(new Itinerary(oneFlight));
-                } else if (f1.getOrigin().equals(origin) && numConnections >= 1) {
+                } if (f1.getOrigin().equals(origin) && numConnections >= 1) {
                     for(Flight f2: flights){
                         if (compatibleFlights(f1, f2)) {
                             List<FlightInterface> twoFlights = new ArrayList<>();
@@ -44,7 +44,7 @@ public class FlightDB {
                             Itinerary i = new Itinerary(twoFlights);
                             if (correctLocations(i, origin, destination)) {
                                 foundItineraries.add(i);
-                            } else {
+                            } if (numConnections == 2){
                                 for(Flight f3: flights){
                                     if(compatibleFlights(f2, f3)){
                                         List<FlightInterface> threeFlights = new ArrayList<>();

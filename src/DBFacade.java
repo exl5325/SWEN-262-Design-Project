@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ public class DBFacade {
         airports = new AirportDB();
         flights = new FlightDB();
         reservations = new ReservationDB();
+        itineraries = new ArrayList<>();
     }
 
     //AirportDB methods
@@ -36,6 +38,9 @@ public class DBFacade {
 
     //ReservationDB methods
     public boolean createReservation(String passenger, int id){
+        if(id >= itineraries.size()){
+            return false;
+        }
         return reservations.createReservation(passenger, itineraries.get(id - 1));
     }
     public boolean deleteReservation(String passenger, String origin, String destination) {
