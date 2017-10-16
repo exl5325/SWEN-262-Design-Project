@@ -63,6 +63,7 @@ public class RequestParser {
         } else {
             input = input.substring(0, input.length() - 1);
             input = partialRequest == null ? input : partialRequest + input;
+            partialRequest = null;
         }
 
         try {
