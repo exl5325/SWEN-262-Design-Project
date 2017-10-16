@@ -21,15 +21,15 @@ public class ReservationDB {
      * @return a boolean indicating if the reservation is created properly
      */
     public boolean createReservation(String passenger, Itinerary itinerary){
+        for(Reservation r : reservations){
+            if(r.sameReservation(passenger,itinerary.getOrigin(),itinerary.getDestination())){
+                return false;
+            }
+        }
         Reservation newReservation = new Reservation(passenger, itinerary);
-        if (reservations.contains(newReservation)){
-            return false;
-        }
-        else {
-            reservations.add(newReservation);
-            saveReservations();
-            return true;
-        }
+        reservations.add(newReservation);
+        saveReservations();
+        return true;
     }
 
     /**
