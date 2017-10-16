@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * Holds, deletes, and searches reservations contained in the system.
@@ -7,9 +7,10 @@ import java.util.List;
  * Created by calvinclark on 10/8/17.
  */
 public class ReservationDB {
+    private String storageFilename = "src/reservations";
     private List<Reservation> reservations;
     public ReservationDB() {
-        reservations = new ArrayList<>();
+        readReservations();
     }
 
     /**
@@ -26,6 +27,7 @@ public class ReservationDB {
         }
         else {
             reservations.add(newReservation);
+            saveReservations();
             return true;
         }
     }
@@ -43,6 +45,7 @@ public class ReservationDB {
             Reservation r = reservations.get(i);
             if(r.sameReservation(passenger, origin, destination)){
                 reservations.remove(i);
+                saveReservations();
                 return true;
             }
         }
@@ -65,6 +68,102 @@ public class ReservationDB {
             }
         }
         return reservations;
+    }
+
+    /**
+     * Reads in a CSV file named "reservations.txt" and sets reservations on the class.
+     */
+    private void readReservations() {
+        reservations = new ArrayList<>();
+
+        String passengerKey = "passenger";
+        String originKey = "origin";
+        String destinationKey = "destination";
+        String departureKey = "departure";
+        String arrivalKey = "arrival";
+        String flightNumberKey = "flightNumber";
+        String airfareKey = "airfare";
+
+        CSVCoder coder = new CSVCoder();
+        List<Map<String, String>> reservationData = coder.readListFromFile(storageFilename,
+                new String[]{passengerKey});
+
+        for (Map<String, String> reservationHash : reservationData) {
+            // Passenger
+            String passenger = reservationHash.get(passengerKey);
+
+            // Flights
+            String flightsString = reservationHash.get("endingValues");
+            String[] flightStrings = partitionFlightsString(flightsString);
+            List<FlightInterface> flights = new ArrayList<>();
+            for (String flightString : flightStrings) {
+                Map<String, String> flightHash = coder.readListFromString(flightString,
+                        new String[]{originKey, destinationKey, departureKey, arrivalKey, flightNumberKey, airfareKey})
+                        .get(0);
+                Flight flight = new Flight(flightHash.get(flightNumberKey),
+                        Integer.parseInt(flightHash.get(airfareKey)),
+                        flightHash.get(destinationKey),
+                        flightHash.get(originKey),
+                        flightHash.get(arrivalKey),
+                        flightHash.get(departureKey));
+                flights.add(flight);
+            }
+
+            Itinerary itinerary = new Itinerary(flights);
+            Reservation reservation = new Reservation(passenger, itinerary);
+            reservations.add(reservation);
+        }
+    }
+
+    /**
+     * Partitions flightsString into csv string pieces: one for each flight
+     *
+     * @param flightsString: A CSV string of all flights for the reservation
+     * @return An array holding each flight as a CSV string
+     */
+    private String[] partitionFlightsString(String flightsString) {
+        String[] values = flightsString.split(",");
+        int newLength = values.length / 6;
+        String[] flights = new String[newLength];
+        for (int i = 0; i < newLength; i++) {
+            String[] pieces = Arrays.copyOfRange(values, i * 6, i * 6 + 6);
+            flights[i] = String.join(",", pieces);
+        }
+        return flights;
+    }
+
+    /**
+     * Saves reservations persistently to disk in reservations.txt.
+     *
+     * The format of each line is:
+     * passengerName,flights
+     * where flights is a list of flights, each of the form:
+     * origin,destination,departure,arrival,flightNumber,airfare
+     */
+    private void saveReservations() {
+        List<List<String>> reservationData = new ArrayList<>();
+
+        for (Reservation reservation : reservations) {
+            List<String> reservationValues = new ArrayList<>();
+
+            // Passenger
+            reservationValues.add(reservation.getPassenger());
+
+            // Flights
+            for (FlightInterface flight : reservation.getItinerary().flights) {
+                reservationValues.add(flight.getOrigin());
+                reservationValues.add(flight.getDestination());
+                reservationValues.add(flight.getDepartureTime());
+                reservationValues.add(flight.getArrivalTime());
+                reservationValues.add(flight.getFlightNumber());
+                reservationValues.add(flight.getAirfare() + "");
+            }
+
+            reservationData.add(reservationValues);
+        }
+
+        CSVCoder coder = new CSVCoder();
+        coder.writeToFile(reservationData, storageFilename);
     }
 
 }
