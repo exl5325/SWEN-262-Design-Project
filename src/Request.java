@@ -3,6 +3,5 @@
  */
 public interface Request {
 
-
     public Response request();
 }
