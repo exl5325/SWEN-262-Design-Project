@@ -7,29 +7,26 @@ import java.util.*;
  */
 public class MakeReservationRequest implements Request {
 
-    private ReservationDB resDatabase;
     private DBFacade db;
 
-    private String passenger, origin, destination;
+    private String passenger;
     private int id;
 
-    public MakeReservationRequest(String passenger, int id, String origin, String destination, DBFacade db){
+    public MakeReservationRequest(String passenger, int id, DBFacade db){
         this.passenger = passenger;
         this.id = id;
-        this.destination = destination;
-        this.origin = origin;
         this.db = db;
     }
 
     // checks if the reservation was duplicated or if the id is invalid. Creates a response accordingly.
     @Override
     public Response request() {
-        if(db.findReservations(passenger,origin,destination).size()!=0){
-            return new SimpleResponse("error,duplicate reservation");
+        if (id <= 0 || db.numberOfSavedItineraries() < id) {
+            return new SimpleResponse("error,invalid id");
         }
         if(db.createReservation(passenger,id)){
             return new SimpleResponse("reserve,successful");
         }
-        return new SimpleResponse("error,invalid id");
+        return new SimpleResponse("error,duplicate reservation");
     }
 }

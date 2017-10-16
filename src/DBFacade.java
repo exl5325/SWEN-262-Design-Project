@@ -30,10 +30,13 @@ public class DBFacade {
         itineraries = flights.findItineraries(origin, destination, numConnections, sortOrder);
         return itineraries;
     }
+    public int numberOfSavedItineraries() {
+        return itineraries.size();
+    }
 
     //ReservationDB methods
     public boolean createReservation(String passenger, int id){
-        return reservations.createReservation(passenger, itineraries.get(id));
+        return reservations.createReservation(passenger, itineraries.get(id - 1));
     }
     public boolean deleteReservation(String passenger, String origin, String destination) {
         return reservations.deleteReservation(passenger, origin, destination);
@@ -41,4 +44,5 @@ public class DBFacade {
     public List<Reservation> findReservations(String passenger, String origin, String destination){
         return reservations.findReservations(passenger, origin, destination);
     }
+
 }
