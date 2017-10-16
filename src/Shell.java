@@ -32,6 +32,9 @@ public class Shell {
             displayPrompt();
 
             String input = receiveLine();
+
+            if (input.isEmpty()) { continue; }
+
             if (input.equals("exit")) { break; }
 
             displayLine(outputForInput(input));
