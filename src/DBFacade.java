@@ -35,7 +35,7 @@ public class DBFacade {
 
     //ReservationDB methods
     public boolean createReservation(String passenger, int id){
-        if(id >= itineraries.size()){
+        if(id > itineraries.size()){
             return false;
         }
         return reservations.createReservation(passenger, itineraries.get(id - 1));
