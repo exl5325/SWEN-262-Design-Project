@@ -16,13 +16,13 @@ public class FlightInfoResponse implements Response {
     //formats the string for the flight info response based on a list of itineraries
     @Override
     public String outputData() {
-        String response = "info," + itineraries.size();
+        String response = "info," + itineraries.size() + "\n";
         if(itineraries.size()==0)
             return response;
         int i = 0;
         for(Itinerary itinerary:itineraries){
             i++;
-            response = response + "\n" + i + "," + itinerary.getAirfare() + "," + itinerary.getConnections();
+            response = response + i + "," + itinerary.getAirfare() + "," + itinerary.getConnections();
             for(FlightInterface flight:itinerary.flights) {
                 response = response + "," + flight.getFlightNumber() + "," + flight.getOrigin() + "," +
                         flight.getDepartureTime() + "," + flight.getDestination() + "," + flight.getArrivalTime();
