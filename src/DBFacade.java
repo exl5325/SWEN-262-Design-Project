@@ -23,9 +23,6 @@ public class DBFacade {
     public Airport findAirport(String code){
         return airports.findAirport(code);
     }
-    public List<Airport> getAirports() {
-        return airports.getAirports();
-    }
 
     //FlightDB methods
     public List<Itinerary> findItineraries(String origin, String destination, int numConnections, String sortOrder){

@@ -24,14 +24,6 @@ public class AirportDB {
     }
 
     /**
-     * Returns all Airports in the system.
-     * @return a list of all Airports
-     */
-    public List<Airport> getAirports(){
-        return new ArrayList<>(airports.values());
-    }
-
-    /**
      * Creates Airport classes from a series of text files: "airports.txt", "delays.txt", and "weather.txt".  Stores
      * these Airports within the class.
      */
