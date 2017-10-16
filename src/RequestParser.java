@@ -30,6 +30,7 @@ public class RequestParser {
     private String sortOrderKey = "sortOrder";
     private String idKey = "id";
     private String passengerKey = "passenger";
+    private String airportKey = "airport";
 
     private String emptyRequestMessage = "empty-request";
     private String unknownRequestMessage = "error,unknown request";
@@ -257,7 +258,22 @@ public class RequestParser {
     }
 
     private AirportInfoRequest airportInfoRequest(String input) throws Exception {
+        List<Map<String, String>> inputData = csvCoder.readListFromString(input,
+                new String[]{airportKey});
 
+        if (inputData.isEmpty()) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        Map<String, String> inputHash = inputData.get(0);
+
+        if (!inputHash.containsKey(airportKey)) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        String airport = inputHash.get(airportKey);
+
+        return new AirportInfoRequest(airport, database);
     }
 
 }
