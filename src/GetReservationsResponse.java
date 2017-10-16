@@ -17,12 +17,12 @@ public class GetReservationsResponse implements Response {
     // printing the information
     @Override
     public String outputData() {
-        String response = "retrieve,";
+        String response = "retrieve," + reservation.size();
         for(Reservation res:reservation){
             Itinerary itinerary = res.getItinerary();
-            response = response + reservation.size();
+            response = response + "\n";
             for(FlightInterface flight:itinerary.flights) {
-                response = response + "\n" + flight.getFlightNumber() + "," + flight.getOrigin() + "," +
+                response = response + flight.getFlightNumber() + "," + flight.getOrigin() + "," +
                         flight.getDepartureTime() + "," + flight.getDestination() + "," + flight.getArrivalTime();
             }
         }
