@@ -10,13 +10,29 @@ import java.util.Map;
 public class RequestParser {
 
     /**
+     * An interface to the application's databases.
+     */
+    private DBFacade database;
+
+    /**
      * A coder for reading comma-separated values.
      */
-    CSVCoder csvCoder = new CSVCoder();
+    private CSVCoder csvCoder = new CSVCoder();
 
-    String commandKey = "command";
+    private String commandKey = "command";
+    private String endingValuesKey = "endingValues";
+    private String originKey = "origin";
+    private String destinationKey = "destination";
+    private String connectionLimitKey = "connections";
+    private String sortOrderKey = "sortOrder";
 
-    String endingValuesKey = "endingValues";
+    private String emptyRequestMessage = "empty-request";
+    private String unknownRequestMessage = "error,unknown request";
+    private String invalidConnectionLimitMessage = "error,invalid connection limit";
+
+    public RequestParser() {
+        this.database = new DBFacade();
+    }
 
     /**
      * Processes the input and produces an output.
@@ -45,17 +61,17 @@ public class RequestParser {
                 new String[]{commandKey});
 
         if (inputData.isEmpty()) {
-            throw new Exception("empty-request");
+            throw new Exception(emptyRequestMessage);
         }
 
         Map<String, String> inputHash = inputData.get(0);
 
         if (!inputHash.containsKey(commandKey)) {
-            throw new Exception("empty-request");
+            throw new Exception(emptyRequestMessage);
         }
 
         if (!inputHash.containsKey(endingValuesKey)) {
-            throw new Exception("error,unknown request");
+            throw new Exception(unknownRequestMessage);
         }
 
         switch (inputHash.get(commandKey)) {
@@ -70,12 +86,52 @@ public class RequestParser {
             case "airport":
                 return airportInfoRequest(inputHash.get(endingValuesKey));
             default:
-                throw new Exception("error,unknown request");
+                throw new Exception(unknownRequestMessage);
         }
     }
 
     private FlightInfoRequest flightInfoRequest(String input) throws Exception {
+        List<Map<String, String>> inputData = csvCoder.readListFromString(input,
+                new String[]{originKey, destinationKey, connectionLimitKey, sortOrderKey});
 
+        if (inputData.isEmpty()) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        Map<String, String> inputHash = inputData.get(0);
+
+        if (!inputHash.containsKey(originKey) || !inputHash.containsKey(destinationKey)) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        if (inputHash.containsKey(sortOrderKey) && !inputHash.containsKey(connectionLimitKey)) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        String origin = inputHash.get(originKey);
+        String destination = inputHash.get(destinationKey);
+
+        String connectionLimit;
+        if (inputHash.containsKey(connectionLimitKey) && !inputHash.get(connectionLimitKey).isEmpty()) {
+            connectionLimit = inputHash.get(connectionLimitKey);
+        } else {
+            connectionLimit = "2";
+        }
+        int numConnections;
+        try {
+            numConnections = Integer.parseInt(connectionLimit);
+        } catch (NumberFormatException e) {
+            throw new Exception(invalidConnectionLimitMessage);
+        }
+
+        String sortOrder;
+        if (inputHash.containsKey(sortOrderKey)) {
+            sortOrder = inputHash.get(sortOrderKey);
+        } else {
+            sortOrder = "departure";
+        }
+
+        return new FlightInfoRequest(origin, destination, sortOrder, numConnections, database);
     }
 
     private MakeReservationRequest makeReservationRequest(String input) throws Exception {
