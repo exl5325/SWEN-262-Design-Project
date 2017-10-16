@@ -6,7 +6,11 @@ package Test;
 public class TestMain {
 
     public static void main(String[] args) {
+        TestCollection tests = new TestCollection();
 
+        tests.addTestCase(new ItineraryTests());
+
+        tests.run();
     }
 
 }
