@@ -1,6 +1,8 @@
 import java.util.List;
 
 /**
+ * Processes the get reservation request and creates the proper responses based on if there was an error or not.
+ *
  * Created by peter.audier on 10/8/2017.
  */
 public class GetReservationRequest implements Request {
@@ -15,6 +17,7 @@ public class GetReservationRequest implements Request {
         this.db = db;
     }
 
+    // checks if any reservations were asked for or if the airport is in the database then returns the proper response
     @Override
     public Response request() {
         List<Reservation> reservations = db.findReservations(passenger, origin, destination);

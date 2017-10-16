@@ -1,4 +1,6 @@
 /**
+ * Processes the delete reservation request and creates the proper responses based on if there was an error or not.
+ *
  * Created by peter.audier on 10/8/2017.
  */
 public class DeleteReservationRequest implements Request {
@@ -13,6 +15,7 @@ public class DeleteReservationRequest implements Request {
         this.db = db;
     }
 
+    // attempts to delete the reservation and returns a response based on if it was successful or not
     @Override
     public Response request() {
         if(db.deleteReservation(passenger, origin, destination))

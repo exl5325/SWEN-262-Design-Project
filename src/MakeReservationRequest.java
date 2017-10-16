@@ -1,6 +1,8 @@
 import java.util.*;
 
 /**
+ * Processes the make reservation request and creates the proper responses based on if there was an error or not.
+ *
  * Created by peter.audier on 10/8/2017.
  */
 public class MakeReservationRequest implements Request {
@@ -19,6 +21,7 @@ public class MakeReservationRequest implements Request {
         this.db = db;
     }
 
+    // checks if the reservation was duplicated or if the id is invalid. Creates a response accordingly.
     @Override
     public Response request() {
         if(db.findReservations(passenger,origin,destination).size()!=0){
@@ -27,6 +30,6 @@ public class MakeReservationRequest implements Request {
         if(db.createReservation(passenger,id)){
             return new SimpleResponse("reserve,successful");
         }
-        return new SimpleResponse("error,duplicate reservation");
+        return new SimpleResponse("error,invalid id");
     }
 }

@@ -1,6 +1,8 @@
 import java.util.List;
 
 /**
+ * Creates the response for get reservations based on a list of reservations.
+ *
  * Created by peter.audier on 10/8/2017.
  */
 public class GetReservationsResponse implements Response {
@@ -11,6 +13,8 @@ public class GetReservationsResponse implements Response {
         this.reservation = reservation;
     }
 
+    // formats the get reservation response by iterating through all the itineraries connected to the reservations and
+    // printing the information
     @Override
     public String outputData() {
         String response = "retrieve,";

@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Processes the flight info request and creates the proper responses based on if there was an error or not.
+ *
  * Created by peter.audier on 10/8/2017.
  */
 public class FlightInfoRequest implements Request {
@@ -17,6 +19,7 @@ public class FlightInfoRequest implements Request {
         this.db = db;
     }
 
+    // checks if the itineraries are real and then create the proper response
     @Override
     public Response request() {
         List<Itinerary> itineraries = db.findItineraries(origin, destination, numConnections, sortOrder);

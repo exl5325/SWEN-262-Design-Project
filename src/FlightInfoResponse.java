@@ -1,6 +1,8 @@
 import java.util.List;
 
 /**
+ * Creates the response for flight info based on a list of itineraries.
+ *
  * Created by peter.audier on 10/8/2017.
  */
 public class FlightInfoResponse implements Response {
@@ -11,6 +13,7 @@ public class FlightInfoResponse implements Response {
         itineraries = i;
     }
 
+    //formats the string for the flight info response based on a list of itineraries
     @Override
     public String outputData() {
         String response = "info," + itineraries.size();
