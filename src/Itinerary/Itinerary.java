@@ -1,3 +1,5 @@
+package Itinerary;
+
 import java.util.List;
 
 /**
@@ -47,7 +49,7 @@ public class Itinerary implements FlightInterface {
     /**
      * Returns the 3-letter code representing the origin airport of the first flight in the itinerary.
      *
-     * @return 3-letter origin Airport code string
+     * @return 3-letter origin Itinerary.Airport code string
      */
     public String getOrigin() {
         return flights.get(0).getOrigin();
@@ -56,7 +58,7 @@ public class Itinerary implements FlightInterface {
     /**
      * Returns the 3-letter code representing the destination airport of the last flight in the itinerary.
      *
-     * @return 3-letter destination Airport code string
+     * @return 3-letter destination Itinerary.Airport code string
      */
     public String getDestination() {
         return flights.get(flights.size()-1).getDestination();

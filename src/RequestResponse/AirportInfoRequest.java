@@ -1,3 +1,7 @@
+package RequestResponse;
+
+import Database.DBFacade;
+
 /**
  * Processes the airport info request and creates the proper responses based on if there was an error or not.
  *

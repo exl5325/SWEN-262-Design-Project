@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+package RequestResponse;
+
+import Database.DBFacade;
+import Itinerary.Itinerary;
+
 import java.util.List;
 
 /**

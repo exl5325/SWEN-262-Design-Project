@@ -1,3 +1,8 @@
+package RequestResponse;
+
+import Database.DBFacade;
+import Itinerary.Reservation;
+
 import java.util.List;
 
 /**

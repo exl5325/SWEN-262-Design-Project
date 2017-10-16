@@ -1,8 +1,11 @@
-import com.sun.deploy.util.StringUtils;
+package UserInteraction;
+
+import Database.DBFacade;
+import Database.CSVCoder;
+import RequestResponse.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  * Receives text strings and parses them into requests.
@@ -116,10 +119,10 @@ public class RequestParser {
     }
 
     /**
-     * Returns a FlightInfoRequest for the given request text.
+     * Returns a RequestResponse.FlightInfoRequest for the given request text.
      *
      * @param input: An input string not including the command keyword.
-     * @return A FlightInfoRequest for the given request text.
+     * @return A RequestResponse.FlightInfoRequest for the given request text.
      * @throws Exception: For invalid request text.
      */
     private FlightInfoRequest flightInfoRequest(String input) throws Exception {

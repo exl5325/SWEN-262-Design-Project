@@ -1,3 +1,5 @@
+package Itinerary;
+
 /**
  * Created by calvinclark on 10/8/17.
  */

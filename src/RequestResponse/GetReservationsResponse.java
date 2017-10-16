@@ -1,3 +1,9 @@
+package RequestResponse;
+
+import Itinerary.Reservation;
+import Itinerary.FlightInterface;
+import Itinerary.Itinerary;
+
 import java.util.List;
 
 /**

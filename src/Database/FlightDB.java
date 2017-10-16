@@ -1,5 +1,7 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+package Database;
+
+import Itinerary.*;
+
 import java.util.*;
 
 /**
@@ -91,7 +93,7 @@ public class FlightDB {
         String airfareKey = "airfare";
 
         CSVCoder coder = new CSVCoder();
-        List<Map<String, String>> flightData = coder.readListFromFile("src/flights",
+        List<Map<String, String>> flightData = coder.readListFromFile("data/flights",
                 new String[]{originKey, destinationKey, departureKey, arrivalKey, flightNumberKey, airfareKey});
 
         for (Map<String, String> flightHash : flightData) {
@@ -141,7 +143,7 @@ public class FlightDB {
         String timeKey = "minutes";
 
         CSVCoder coder = new CSVCoder();
-        Map<String, Map<String, String>> connectionData = coder.readMapFromFile("src/connections",
+        Map<String, Map<String, String>> connectionData = coder.readMapFromFile("data/connections",
                 new String[]{airportCodeKey, timeKey});
 
         for (Map<String, String> connectionHash : connectionData.values()) {

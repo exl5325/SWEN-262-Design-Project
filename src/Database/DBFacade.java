@@ -1,3 +1,9 @@
+package Database;
+
+import Itinerary.Itinerary;
+import Itinerary.Airport;
+import Itinerary.Reservation;
+
 import java.util.ArrayList;
 import java.util.List;
 

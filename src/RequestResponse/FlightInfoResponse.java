@@ -1,3 +1,8 @@
+package RequestResponse;
+
+import Itinerary.Itinerary;
+import Itinerary.FlightInterface;
+
 import java.util.List;
 
 /**

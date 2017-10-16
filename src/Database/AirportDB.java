@@ -1,5 +1,7 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+package Database;
+
+import Itinerary.Airport;
+
 import java.util.*;
 
 /**
@@ -35,11 +37,11 @@ public class AirportDB {
         String timeKey = "minutes";
 
         CSVCoder coder = new CSVCoder();
-        Map<String, Map<String, String>> airportData = coder.readMapFromFile("src/airports",
+        Map<String, Map<String, String>> airportData = coder.readMapFromFile("data/airports",
                 new String[]{airportCodeKey, cityKey});
-        Map<String, Map<String, String>> delayData = coder.readMapFromFile("src/delays",
+        Map<String, Map<String, String>> delayData = coder.readMapFromFile("data/delays",
                 new String[]{airportCodeKey, timeKey});
-        Map<String, Map<String, String>> weatherData = coder.readMapFromFile("src/weather",
+        Map<String, Map<String, String>> weatherData = coder.readMapFromFile("data/weather",
                 new String[]{airportCodeKey});
 
         for (Map<String, String> airportHash : airportData.values()) {

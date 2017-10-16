@@ -1,3 +1,5 @@
+package Itinerary;
+
 /**
  * Contains a passenger's reservation for a specified itinerary.  Can retrieve data about the passenger or itinerary.
  *

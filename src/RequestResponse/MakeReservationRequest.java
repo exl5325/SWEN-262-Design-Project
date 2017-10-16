@@ -1,4 +1,6 @@
-import java.util.*;
+package RequestResponse;
+
+import Database.DBFacade;
 
 /**
  * Processes the make reservation request and creates the proper responses based on if there was an error or not.

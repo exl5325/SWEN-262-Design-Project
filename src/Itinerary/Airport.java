@@ -1,3 +1,5 @@
+package Itinerary;
+
 /**
  * Holds info and calculates weather for a specific airport.
  *

@@ -1,3 +1,5 @@
+package UserInteraction;
+
 import java.util.Scanner;
 
 /**
@@ -11,7 +13,7 @@ public class Shell {
 
     private String prompt = ">>";
 
-    private String startMessage = "Welcome to the Airline Flight Reservation Server (AFRS).";
+    private String startMessage = "Welcome to the Airline Itinerary.Itinerary.Flight Reservation Server (AFRS).";
 
     private Scanner scanner = new Scanner(System.in);
 

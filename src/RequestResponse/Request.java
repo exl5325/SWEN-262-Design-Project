@@ -1,3 +1,5 @@
+package RequestResponse;
+
 /**
  * Interface that all requests implement
  *

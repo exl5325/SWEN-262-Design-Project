@@ -1,3 +1,5 @@
+package Itinerary;
+
 /**
  * Created by Eric on 10/14/2017.
  * Collection of helper functions for the comparators

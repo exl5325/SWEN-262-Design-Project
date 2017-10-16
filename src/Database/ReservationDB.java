@@ -1,4 +1,7 @@
-import java.lang.reflect.Array;
+package Database;
+
+import Itinerary.*;
+
 import java.util.*;
 
 /**
@@ -7,7 +10,7 @@ import java.util.*;
  * Created by calvinclark on 10/8/17.
  */
 public class ReservationDB {
-    private String storageFilename = "src/reservations";
+    private String storageFilename = "data/reservations";
     private List<Reservation> reservations;
     public ReservationDB() {
         readReservations();

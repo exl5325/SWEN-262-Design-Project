@@ -1,3 +1,5 @@
+package Itinerary;
+
 /**
  * A common interface to be implemented by Flight and Itinerary.
  *

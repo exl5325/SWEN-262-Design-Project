@@ -1,3 +1,5 @@
+package Itinerary;
+
 import java.util.Comparator;
 
 /**

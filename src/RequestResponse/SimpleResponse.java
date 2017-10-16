@@ -1,3 +1,5 @@
+package RequestResponse;
+
 /**
  * Response that prints out the String that is passed to it. Used for error responses and the more simple responses.
  *
