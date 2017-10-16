@@ -9,8 +9,6 @@ import java.util.Scanner;
  */
 public class Shell {
 
-    private String input;
-
     private String prompt = ">>";
 
     private String startMessage = "Welcome to the Airline Flight Reservation Server (AFRS).";
@@ -22,8 +20,6 @@ public class Shell {
     public Shell(RequestResponseParser parser) {
         this.parser = parser;
     }
-
-    public void sendTextInput(String input) {}
 
     /**
      * Starts the shell's run loop
