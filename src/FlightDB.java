@@ -82,24 +82,27 @@ public class FlightDB {
      */
     private void readFlights(){
         flights = new ArrayList<>();
-        try {
-            Scanner flightReader = new Scanner(new File("flights.txt"));
-            while(flightReader.hasNext()) {
-                String[] flightLine = flightReader.nextLine().split(",");
-                if(flightLine.length == 6) {
-                    String origin = flightLine[0];
-                    String destination = flightLine[1];
-                    String departureTime = flightLine[2];
-                    String arrivalTime = flightLine[3];
-                    String flightNumber = flightLine[4];
-                    int airfare = Integer.parseInt(flightLine[5]);
-                    Flight f = new Flight(flightNumber, airfare, origin, destination, arrivalTime, departureTime);
-                    flights.add(f);
-                }
-            }
 
-        }
-        catch (FileNotFoundException f){
+        String originKey = "origin";
+        String destinationKey = "destination";
+        String departureKey = "departure";
+        String arrivalKey = "arrival";
+        String flightNumberKey = "flightNumber";
+        String airfareKey = "airfare";
+
+        CSVCoder coder = new CSVCoder();
+        List<Map<String, String>> flightData = coder.readListFromFile("src/flights",
+                new String[]{originKey, destinationKey, departureKey, arrivalKey, flightNumberKey, airfareKey});
+
+        for (Map<String, String> flightHash : flightData) {
+            String origin = flightHash.get(originKey);
+            String destination = flightHash.get(destinationKey);
+            String departureTime = flightHash.get(departureKey);
+            String arrivalTime = flightHash.get(arrivalKey);
+            String flightNumber = flightHash.get(flightNumberKey);
+            int airfare = Integer.parseInt(flightHash.get(airfareKey));
+            Flight flight = new Flight(flightNumber, airfare, origin, destination, arrivalTime, departureTime);
+            flights.add(flight);
         }
     }
 
@@ -110,7 +113,7 @@ public class FlightDB {
      * @return a boolean value indicating whether f2 can be placed after f1 in an Itinerary
      */
     private boolean compatibleFlights(Flight flight1, Flight flight2){
-        if(flight1.getDestination() == flight2.getOrigin()){
+        if(flight1.getDestination().equals(flight2.getOrigin())){
             String[] a1 = new String[2];
             String[] a2 = new String[2];
             a1[1] = flight1.getArrivalTime();
@@ -136,18 +139,17 @@ public class FlightDB {
      * Reads in a CSV file named "connections.txt".  Converts it to a HashMap mapping airport codes to connection times.
      */
     private void readConnections(){
-        try {
-            Scanner connectionReader = new Scanner(new File("connections.txt"));
-            while(connectionReader.hasNext()){
-                String[] connection = connectionReader.nextLine().split(",");
-                if(connection.length == 2){
-                    String code = connection[0];
-                    Integer delayTime = Integer.parseInt(connection[1]);
-                    connections.put(code, delayTime);
-                }
-            }
-        }
-        catch (FileNotFoundException f){
+        String airportCodeKey = "airportCode";
+        String timeKey = "minutes";
+
+        CSVCoder coder = new CSVCoder();
+        Map<String, Map<String, String>> connectionData = coder.readMapFromFile("src/connections",
+                new String[]{airportCodeKey, timeKey});
+
+        for (Map<String, String> connectionHash : connectionData.values()) {
+            String code = connectionHash.get(airportCodeKey);
+            Integer delayTime = Integer.parseInt(connectionHash.get(timeKey));
+            connections.put(code, delayTime);
         }
     }
 

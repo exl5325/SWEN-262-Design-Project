@@ -35,26 +35,28 @@ public class AirportDB {
      * Creates Airport classes from a series of text files: "airports.txt", "delays.txt", and "weather.txt".  Stores
      * these Airports within the class.
      */
-    private void readAirports(){
+    private void readAirports() {
         airports = new HashMap<>();
-        try {
-            Scanner airportReader = new Scanner(new File("airports.txt"));
-            Scanner delayReader = new Scanner(new File("delays.txt"));
-            Scanner weatherReader = new Scanner(new File("weather.txt"));
-            while (airportReader.hasNext()){
-                String[] airportInfo = airportReader.nextLine().split(",");
-                if(airportInfo.length >= 4) {
-                    String code = airportInfo[0];
-                    String name = airportInfo[1];
-                    int delay = Integer.parseInt(delayReader.nextLine().split(",")[1]);
-                    String[] weatherLine = weatherReader.nextLine().split(",");
-                    String[] weather = Arrays.copyOfRange(weatherLine, 1, weatherLine.length - 1);
-                    Airport airport = new Airport(code, name, delay, weather);
-                    airports.put(code, airport);
-                }
-            }
-        }
-        catch (FileNotFoundException f) {
+
+        String airportCodeKey = "airportCode";
+        String cityKey = "cityName";
+        String timeKey = "minutes";
+
+        CSVCoder coder = new CSVCoder();
+        Map<String, Map<String, String>> airportData = coder.readMapFromFile("src/airports",
+                new String[]{airportCodeKey, cityKey});
+        Map<String, Map<String, String>> delayData = coder.readMapFromFile("src/delays",
+                new String[]{airportCodeKey, timeKey});
+        Map<String, Map<String, String>> weatherData = coder.readMapFromFile("src/weather",
+                new String[]{airportCodeKey});
+
+        for (Map<String, String> airportHash : airportData.values()) {
+            String code = airportHash.get(airportCodeKey);
+            String name = airportHash.get(cityKey);
+            int delay = Integer.parseInt(delayData.get(code).get(timeKey));
+            String[] weather = weatherData.get(code).get("endingValues").split(",");
+            Airport airport = new Airport(code, name, delay, weather);
+            airports.put(code, airport);
         }
     }
 }

@@ -29,8 +29,8 @@ public class FlightInfoRequest implements Request {
                 return new SimpleResponse("error,invalid connection limit");
             if (itinerary.getDestination() == null)
                 return new SimpleResponse("error,unknown destination");
-            if (sortOrder!="departure" and sortOrder!="arrival" and sortOrder!="airfare")
-                return new SimpleResponse(error,invalid sort order)
+            if (!sortOrder.equals("departure") && !sortOrder.equals("arrival") && !sortOrder.equals("airfare"))
+                return new SimpleResponse("error,invalid sort order");
         }
 
         return new FlightInfoResponse(itineraries);
