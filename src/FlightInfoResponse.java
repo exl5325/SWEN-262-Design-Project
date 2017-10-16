@@ -27,6 +27,7 @@ public class FlightInfoResponse implements Response {
                 response = response + "," + flight.getFlightNumber() + "," + flight.getOrigin() + "," +
                         flight.getDepartureTime() + "," + flight.getDestination() + "," + flight.getArrivalTime();
             }
+            response = response + "\n";
         }
         return response;
     }
