@@ -114,10 +114,8 @@ public class FlightDB {
      */
     private boolean compatibleFlights(Flight flight1, Flight flight2){
         if(flight1.getDestination().equals(flight2.getOrigin())){
-            String[] a1 = new String[2];
-            String[] a2 = new String[2];
-            a1[1] = flight1.getArrivalTime();
-            a2[1] = flight2.getDepartureTime();
+            String[] a1 = flight1.getArrivalTime().split(":");
+            String[] a2 = flight2.getDepartureTime().split(":");
             int delayTime = TimeHelper.calculateMinutes(a2) - TimeHelper.calculateMinutes(a1);
             return(connections.get(flight1.getDestination()) <= delayTime);
         }
