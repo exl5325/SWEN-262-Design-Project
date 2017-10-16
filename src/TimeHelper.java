@@ -1,6 +1,7 @@
 /**
  * Created by Eric on 10/14/2017.
  * Collection of helper functions for the comparators
+ * Do NOT instantiate this class!
  */
 public abstract class TimeHelper {
 
@@ -31,10 +32,16 @@ public abstract class TimeHelper {
      */
     public static int calculateMinutes(String[] t1){
         String minutes = t1[1].replaceAll("[^0-9.]", "");
-        int result = Integer.parseInt(t1[0]) * 60 + Integer.parseInt(minutes);
-        if(t1[1].charAt(2) == 'p'){
-            result += 720;
+        int result = 0;
+        int hours = Integer.parseInt(t1[0]);
+        char ampm = t1[1].charAt(2);
+        if(ampm == 'p' && hours != 12){
+            hours += 12;
         }
+        else if(hours == 12 && ampm == 'a'){
+            hours = 0;
+        }
+        result = hours * 60 + Integer.parseInt(minutes);
         return result;
     }
 }
