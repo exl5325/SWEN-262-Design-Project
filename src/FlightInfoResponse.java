@@ -22,12 +22,14 @@ public class FlightInfoResponse implements Response {
         int i = 0;
         for(Itinerary itinerary:itineraries){
             i++;
-            response = response + i + "," + itinerary.getAirfare() + "," + itinerary.getConnections();
+            if(response.equals(""))
+                response = response + i + "," + itinerary.getAirfare() + "," + itinerary.getConnections();
+            else
+                response = response + "\n" + i + "," + itinerary.getAirfare() + "," + itinerary.getConnections();
             for(FlightInterface flight:itinerary.flights) {
                 response = response + "," + flight.getFlightNumber() + "," + flight.getOrigin() + "," +
                         flight.getDepartureTime() + "," + flight.getDestination() + "," + flight.getArrivalTime();
             }
-            response = response + "\n";
         }
         return response;
     }
