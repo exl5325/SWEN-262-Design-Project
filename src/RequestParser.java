@@ -198,7 +198,40 @@ public class RequestParser {
     }
 
     private GetReservationRequest getReservationRequest(String input) throws Exception {
+        List<Map<String, String>> inputData = csvCoder.readListFromString(input,
+                new String[]{passengerKey, originKey, destinationKey});
 
+        if (inputData.isEmpty()) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        Map<String, String> inputHash = inputData.get(0);
+
+        if (!inputHash.containsKey(passengerKey)) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        if (inputHash.containsKey(destinationKey) && !inputHash.containsKey(originKey)) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        String passenger = inputHash.get(passengerKey);
+
+        String origin;
+        if (inputHash.containsKey(originKey)) {
+            origin = inputHash.get(originKey);
+        } else {
+            origin = "";
+        }
+
+        String destination;
+        if (inputHash.containsKey(destinationKey)) {
+            destination = inputHash.get(destinationKey);
+        } else {
+            destination = "";
+        }
+
+        return new GetReservationRequest(passenger, origin, destination, database);
     }
 
     private DeleteReservationRequest deleteReservationRequest(String input) throws Exception {

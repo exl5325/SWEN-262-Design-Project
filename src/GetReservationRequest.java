@@ -17,23 +17,14 @@ public class GetReservationRequest implements Request {
 
     @Override
     public Response request() {
+        if (!origin.isEmpty() && db.findAirport(origin) == null)
+            return new SimpleResponse("error,unknown origin");
+        if (!destination.isEmpty() && db.findAirport(destination) == null)
+            return new SimpleResponse("error,unknown destination");
+
         List<Reservation> reservations = db.findReservations(passenger, origin, destination);
         if(reservations.size()==0) {
             return new SimpleResponse("retrieve,0");
-        }
-
-        for(Reservation res:reservations){
-            Boolean org = false, dest = false;
-            for(Airport airport:db.getAirports()){
-                if(airport.getName().equals(origin))
-                    org = true;
-                if(airport.getName().equals(destination))
-                    dest = true;
-            }
-            if(!org)
-                return new SimpleResponse("error,unknown origin");
-            if(!dest)
-                return new SimpleResponse("error,unknown destination");
         }
 
         return new GetReservationsResponse(reservations);

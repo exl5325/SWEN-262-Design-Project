@@ -55,6 +55,8 @@ public class ReservationDB {
     /**
      * Searches for a reservation with a given passenger name, origin airport, and destination airport.
      *
+     * Origin and/or destination may be empty strings to ignore filtering by that value.
+     *
      * @param passenger the passenger name on the reservation to search for
      * @param origin the origin airport code on the reservation to search for
      * @param destination the destination airport code on the reservation to search for
@@ -63,11 +65,12 @@ public class ReservationDB {
     public List<Reservation> findReservations(String passenger, String origin, String destination){
         List<Reservation> found = new ArrayList<>();
         for(Reservation r: reservations){
-            if (r.sameReservation(passenger, origin, destination)){
-                found.add(r);
-            }
+            if (!r.getPassenger().equals(passenger)) { continue; }
+            if (!origin.isEmpty() && !r.getOrigin().equals(origin)) { continue; }
+            if (!destination.isEmpty() && !r.getDestination().equals(destination)) { continue; }
+            found.add(r);
         }
-        return reservations;
+        return found;
     }
 
     /**
