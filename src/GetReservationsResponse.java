@@ -22,7 +22,7 @@ public class GetReservationsResponse implements Response {
             Itinerary itinerary = res.getItinerary();
             response = response + reservation.size();
             for(FlightInterface flight:itinerary.flights) {
-                response = "\n" + response + "," + flight.getFlightNumber() + "," + flight.getOrigin() + "," +
+                response = response + "\n" + flight.getFlightNumber() + "," + flight.getOrigin() + "," +
                         flight.getDepartureTime() + "," + flight.getDestination() + "," + flight.getArrivalTime();
             }
         }
