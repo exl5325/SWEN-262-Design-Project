@@ -143,6 +143,29 @@ public class CSVCoder {
             return new ArrayList<>();
         }
 
+        return readListFromScanner(reader, keys);
+    }
+
+    /**
+     * Reads a CSV string into a 2D List.
+     *
+     * @param string: A valid CSV string.
+     * @param keys: A List of hash keys corresponding to the expected CSV values.
+     * @return A List of maps mapping the passed keys to CSV values.
+     */
+    public List<Map<String, String>> readListFromString(String string, String[] keys) {
+        Scanner reader = new Scanner(string);
+        return readListFromScanner(reader, keys);
+    }
+
+    /**
+     * Reads a CSV string from a Scanner into a 2D List.
+     *
+     * @param reader: The Scanner reading the CSV string.
+     * @param keys: A List of hash keys corresponding to the expected CSV values.
+     * @return A List of maps mapping the passed keys to CSV values.
+     */
+    private List<Map<String, String>> readListFromScanner(Scanner reader, String[] keys) {
         List<Map<String, String>> lines = new ArrayList<>();
         while (reader.hasNext()) {
             String line = reader.nextLine();
