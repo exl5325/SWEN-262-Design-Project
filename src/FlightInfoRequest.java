@@ -19,19 +19,16 @@ public class FlightInfoRequest implements Request {
 
     @Override
     public Response request() {
+        if (db.findAirport(origin) == null)
+            return new SimpleResponse("error,unknown origin");
+        if (db.findAirport(destination) == null)
+            return new SimpleResponse("error,unknown destination");
+        if (numConnections > 2 || numConnections <0)
+            return new SimpleResponse("error,invalid connection limit");
+        if (!sortOrder.equals("departure") && !sortOrder.equals("arrival") && !sortOrder.equals("airfare"))
+            return new SimpleResponse("error,invalid sort order");
+
         List<Itinerary> itineraries = db.findItineraries(origin, destination, numConnections, sortOrder);
-        for(Itinerary itinerary:itineraries) {
-            if (itinerary.getOrigin() == null)
-                return new SimpleResponse("error,unknown origin");
-            if (itinerary.getDestination() == null)
-                return new SimpleResponse("error,unknown destination");
-            if (itinerary.getConnections() > 2 || itinerary.getConnections() < 0)
-                return new SimpleResponse("error,invalid connection limit");
-            if (itinerary.getDestination() == null)
-                return new SimpleResponse("error,unknown destination");
-            if (!sortOrder.equals("departure") && !sortOrder.equals("arrival") && !sortOrder.equals("airfare"))
-                return new SimpleResponse("error,invalid sort order");
-        }
 
         return new FlightInfoResponse(itineraries);
     }

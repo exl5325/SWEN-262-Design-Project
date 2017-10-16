@@ -1,5 +1,8 @@
+import com.sun.deploy.util.StringUtils;
+
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Receives text strings and parses them into requests.
@@ -25,10 +28,16 @@ public class RequestParser {
     private String destinationKey = "destination";
     private String connectionLimitKey = "connections";
     private String sortOrderKey = "sortOrder";
+    private String idKey = "id";
+    private String passengerKey = "passenger";
 
     private String emptyRequestMessage = "empty-request";
     private String unknownRequestMessage = "error,unknown request";
     private String invalidConnectionLimitMessage = "error,invalid connection limit";
+    private String invalidIdMessage = "error,invalid id";
+    private String partialRequestMessage = "partial-request";
+
+    private String partialRequest = null;
 
     public RequestParser() {
         this.database = new DBFacade();
@@ -41,6 +50,20 @@ public class RequestParser {
      * @return A non-empty output string.
      */
     public String process(String input) {
+        input = input.trim();
+
+        if (input.isEmpty()) {
+            return emptyRequestMessage;
+        }
+
+        if (!input.endsWith(";")) {
+            partialRequest = partialRequest == null ? input : partialRequest + input;
+            return partialRequestMessage;
+        } else {
+            input = input.substring(0, input.length() - 1);
+            input = partialRequest == null ? input : partialRequest + input;
+        }
+
         try {
             Request request = createRequest(input);
             return request.request().outputData();
@@ -90,6 +113,13 @@ public class RequestParser {
         }
     }
 
+    /**
+     * Returns a FlightInfoRequest for the given request text.
+     *
+     * @param input: An input string not including the command keyword.
+     * @return A FlightInfoRequest for the given request text.
+     * @throws Exception: For invalid request text.
+     */
     private FlightInfoRequest flightInfoRequest(String input) throws Exception {
         List<Map<String, String>> inputData = csvCoder.readListFromString(input,
                 new String[]{originKey, destinationKey, connectionLimitKey, sortOrderKey});
@@ -134,8 +164,37 @@ public class RequestParser {
         return new FlightInfoRequest(origin, destination, sortOrder, numConnections, database);
     }
 
+    /**
+     * Returns a MakeReservationRequest for the given request text.
+     *
+     * @param input: An input string not including the command keyword.
+     * @return A MakeReservationRequest for the given request text.
+     * @throws Exception: For invalid request text.
+     */
     private MakeReservationRequest makeReservationRequest(String input) throws Exception {
+        List<Map<String, String>> inputData = csvCoder.readListFromString(input,
+                new String[]{idKey, passengerKey});
 
+        if (inputData.isEmpty()) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        Map<String, String> inputHash = inputData.get(0);
+
+        if (!inputHash.containsKey(idKey) || !inputHash.containsKey(passengerKey)) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        String passenger = inputHash.get(passengerKey);
+        String idStr = inputHash.get(idKey);
+        int id;
+        try {
+            id = Integer.parseInt(idStr);
+        } catch (NumberFormatException e) {
+            throw new Exception(invalidIdMessage);
+        }
+
+        return new MakeReservationRequest(passenger, id, database);
     }
 
     private GetReservationRequest getReservationRequest(String input) throws Exception {
