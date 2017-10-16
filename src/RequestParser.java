@@ -235,7 +235,25 @@ public class RequestParser {
     }
 
     private DeleteReservationRequest deleteReservationRequest(String input) throws Exception {
+        List<Map<String, String>> inputData = csvCoder.readListFromString(input,
+                new String[]{passengerKey, originKey, destinationKey});
 
+        if (inputData.isEmpty()) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        Map<String, String> inputHash = inputData.get(0);
+
+        if (!inputHash.containsKey(passengerKey) || !inputHash.containsKey(originKey)
+                || !inputHash.containsKey(destinationKey)) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        String passenger = inputHash.get(passengerKey);
+        String origin = inputHash.get(originKey);
+        String destination = inputHash.get(destinationKey);
+
+        return new DeleteReservationRequest(passenger, origin, destination, database);
     }
 
     private AirportInfoRequest airportInfoRequest(String input) throws Exception {
