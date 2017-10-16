@@ -20,9 +20,9 @@ public class GetReservationsResponse implements Response {
         String response = "retrieve,";
         for(Reservation res:reservation){
             Itinerary itinerary = res.getItinerary();
-            response = response + "\n" + itinerary.getAirfare() + "," + itinerary.getConnections();
+            response = response + reservation.size();
             for(FlightInterface flight:itinerary.flights) {
-                response = response + "," + flight.getFlightNumber() + "," + flight.getOrigin() + "," +
+                response = "\n" + response + "," + flight.getFlightNumber() + "," + flight.getOrigin() + "," +
                         flight.getDepartureTime() + "," + flight.getDestination() + "," + flight.getArrivalTime();
             }
         }
