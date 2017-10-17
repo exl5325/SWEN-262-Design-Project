@@ -9,6 +9,7 @@ public class TestMain {
         TestCollection tests = new TestCollection();
 
         tests.addTestCase(new ItineraryTests());
+        tests.addTestCase(new FullSystemTests());
 
         tests.run();
     }

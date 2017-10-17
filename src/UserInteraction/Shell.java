@@ -58,7 +58,7 @@ public class Shell {
      * @param input: The entered command text
      * @return The output for input
      */
-    private String outputForInput(String input) {
+    public String outputForInput(String input) {
         return parser.process(input);
     }
 
