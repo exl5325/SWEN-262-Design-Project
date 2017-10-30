@@ -19,7 +19,7 @@ public class DBFacade {
     private List<Itinerary> itineraries;
 
     public DBFacade(){
-        airports = new AirportDB();
+        airports = new LocalAirportDB();
         flights = new LocalFlightDB();
         reservations = new ReservationDB();
         itineraries = new ArrayList<>();
