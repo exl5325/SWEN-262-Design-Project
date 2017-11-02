@@ -34,4 +34,10 @@ public class Disconnected implements ConnectState {
     public boolean connectAirports(){
         return false;
     }
+    public boolean disconnectFlights(){
+        return false;
+    }
+    public boolean disconnectAirports(){
+        return false;
+    }
 }

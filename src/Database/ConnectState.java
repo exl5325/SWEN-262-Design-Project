@@ -18,4 +18,6 @@ public interface ConnectState {
     List<Reservation> findReservations(String passenger, String origin, String destination);
     boolean connectFlights();
     boolean connectAirports();
+    boolean disconnectFlights();
+    boolean disconnectAirports();
 }
