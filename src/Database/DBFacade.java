@@ -53,5 +53,17 @@ public class DBFacade {
             return true;
         }
     }
+    public void connectFlights(){
+        state.connectFlights();
+    }
+    public void connectAirports(){
+        state.connectAirports();
+    }
+    public void disconnectFlights(){
+        state.disconnectFlights();
+    }
+    public void disconnectAirports(){
+        state.disconnectAirports();
+    }
 
 }

@@ -58,4 +58,12 @@ public class Connected implements ConnectState {
         airports = new WebAirportDB();
         return true;
     }
+    public boolean disconnectFlights(){
+        flights = new LocalFlightDB();
+        return true;
+    }
+    public boolean disconnectAirports(){
+        airports = new LocalAirportDB();
+        return true;
+    }
 }
