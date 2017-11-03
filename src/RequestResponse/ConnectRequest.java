@@ -1,5 +1,7 @@
 package RequestResponse;
 
+import Database.DBFacade;
+
 /**
  * Processes the connection request and creates the proper response
  *
@@ -7,15 +9,17 @@ package RequestResponse;
  */
 
 public class ConnectRequest implements Request{
-    private int currentConnections;
+    private DBFacade db;
 
-    public ConnectRequest(int currentConnections){
-        this.currentConnections = currentConnections;
+    public ConnectRequest(DBFacade db){
+        this.db = db;
     }
 
     @Override
     public Response request() {
         //check if currentConnections is equal to maximum
-        return new SimpleResponse("connect");
+        if(db.connect())
+            return new SimpleResponse("connect");
+        return new SimpleResponse("error,already connected");
     }
 }
