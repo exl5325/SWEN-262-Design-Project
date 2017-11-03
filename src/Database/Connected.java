@@ -15,12 +15,16 @@ public class Connected implements ConnectState {
     private FlightDB flights;
     private ReservationDB reservations;
     private List<Itinerary> itineraries;
+    private boolean flights_connected;
+    private boolean airports_connected;
 
     public Connected(){
         airports = new LocalAirportDB();
         flights = new LocalFlightDB();
         reservations = new ReservationDB();
         itineraries = new ArrayList<>();
+        flights_connected = false;
+        airports_connected = false;
     }
 
     //AirportDB methods
@@ -51,19 +55,35 @@ public class Connected implements ConnectState {
         return reservations.findReservations(passenger, origin, destination);
     }
     public boolean connectFlights(){
-        flights = new WebFlightDB();
-        return true;
+        if(!flights_connected) {
+            flights = new WebFlightDB();
+            flights_connected = true;
+            return true;
+        }
+        return false;
     }
     public boolean connectAirports(){
-        airports = new WebAirportDB();
-        return true;
+        if(!airports_connected) {
+            airports = new WebAirportDB();
+            airports_connected = true;
+            return true;
+        }
+        return false;
     }
     public boolean disconnectFlights(){
-        flights = new LocalFlightDB();
-        return true;
+        if(flights_connected) {
+            flights = new LocalFlightDB();
+            flights_connected = false;
+            return true;
+        }
+        return false;
     }
     public boolean disconnectAirports(){
-        airports = new LocalAirportDB();
-        return true;
+        if(airports_connected) {
+            airports = new LocalAirportDB();
+            airports_connected = false;
+            return true;
+        }
+        return false;
     }
 }
