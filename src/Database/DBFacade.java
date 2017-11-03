@@ -8,49 +8,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Requests information from contained databases.  Holds most recent reservations for itinerary creation.
+ * Requests information from contained state, which can be either connected or disconnected from the server.
  *
  * Created by calvinclark on 10/8/17.
  */
 public class DBFacade {
-    private AirportDB airports;
-    private FlightDB flights;
-    private ReservationDB reservations;
-    private List<Itinerary> itineraries;
+    private ConnectState state;
+    private boolean connected;
 
     public DBFacade(){
-        airports = new AirportDB();
-        flights = new FlightDB();
-        reservations = new ReservationDB();
-        itineraries = new ArrayList<>();
+        state = new Disconnected();
+        connected = false;
     }
 
     //AirportDB methods
     public Airport findAirport(String code){
-        return airports.findAirport(code);
+        return state.findAirport(code);
     }
 
     //FlightDB methods
     public List<Itinerary> findItineraries(String origin, String destination, int numConnections, String sortOrder){
-        itineraries = flights.findItineraries(origin, destination, numConnections, sortOrder);
-        return itineraries;
+        return state.findItineraries(origin,destination,numConnections,sortOrder);
     }
     public int numberOfSavedItineraries() {
-        return itineraries.size();
+        return state.numberOfSavedItineraries();
     }
 
     //ReservationDB methods
     public boolean createReservation(String passenger, int id){
-        if(id > itineraries.size()){
-            return false;
-        }
-        return reservations.createReservation(passenger, itineraries.get(id - 1));
+        return state.createReservation(passenger, id);
     }
     public boolean deleteReservation(String passenger, String origin, String destination) {
-        return reservations.deleteReservation(passenger, origin, destination);
+        return state.deleteReservation(passenger, origin, destination);
     }
     public List<Reservation> findReservations(String passenger, String origin, String destination){
-        return reservations.findReservations(passenger, origin, destination);
+        return state.findReservations(passenger, origin, destination);
+    }
+    public boolean connect(){
+        if(connected){
+            return false;
+        }
+        else {
+            state = new Connected();
+            return true;
+        }
+    }
+    public void connectFlights(){
+        state.connectFlights();
+    }
+    public void connectAirports(){
+        state.connectAirports();
+    }
+    public void disconnectFlights(){
+        state.disconnectFlights();
+    }
+    public void disconnectAirports(){
+        state.disconnectAirports();
     }
 
 }
