@@ -1,5 +1,7 @@
 package RequestResponse;
 
+import Database.DBFacade;
+
 /**
  * Processes the connection request and creates the proper response
  *
@@ -7,15 +9,19 @@ package RequestResponse;
  */
 
 public class SetAirportInfoRequest implements Request{
-    String server, successful;
+    private String server;
+    private DBFacade db;
 
-    public SetAirportInfoRequest(String server){
-
+    public SetAirportInfoRequest(String server, DBFacade db){
+        this.server = server;
+        this.db = db;
     }
 
     @Override
-    public Response request() {
-        return null;
+    public Response request(){
+        if(db==null)//TODO method to connect to FAA or local server
+            return new SimpleResponse(server+",successful");
+        return new SimpleResponse("error,unknown information server");
     }
 }
 
