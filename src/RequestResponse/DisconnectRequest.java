@@ -18,8 +18,8 @@ public class DisconnectRequest implements Request{
 
     @Override
     public Response request() {
-        //if(db.disconnect()) //TODO is there a disconnect method to call?
+        if(db.disconnect())
             return new SimpleResponse("disconnect");
-        //return new SimpleResponse("error,already disconnected");
+        return new SimpleResponse("error,already disconnected");
     }
 }
