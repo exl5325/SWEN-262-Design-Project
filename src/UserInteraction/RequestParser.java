@@ -300,7 +300,7 @@ public class RequestParser {
     }
 
     private DisconnectRequest disconnectRequest() {
-        return new DisconnectRequest();
+        return new DisconnectRequest(database);
     }
 
     private UndoRequest undoRequest() {
