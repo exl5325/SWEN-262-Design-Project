@@ -60,9 +60,6 @@ public class DBFacade {
         }
         return false;
     }
-    public void connectFlights(){
-        state.connectFlights();
-    }
     public boolean isConnected(){
         return connected;
     }
