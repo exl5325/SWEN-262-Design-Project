@@ -19,9 +19,13 @@ public class SetAirportInfoRequest implements Request{
 
     @Override
     public Response request(){
-        if(db==null)//TODO method to connect to FAA or local server
-            return new SimpleResponse(server+",successful");
-        return new SimpleResponse("error,unknown information server");
+        if(server.equals("local"))
+            db.disconnectAirports();
+        if(server.equals("faa"))
+            db.connectAirports();
+        else
+            return new SimpleResponse("error,unknown information server");
+        return new SimpleResponse(server + ",successful");
     }
 }
 
