@@ -53,8 +53,18 @@ public class DBFacade {
             return true;
         }
     }
+    public boolean disconnect(){
+        if(connected){
+            state = new Disconnected();
+            return true;
+        }
+        return false;
+    }
     public void connectFlights(){
         state.connectFlights();
+    }
+    public boolean isConnected(){
+        return connected;
     }
     public void connectAirports(){
         state.connectAirports();
