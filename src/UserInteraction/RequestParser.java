@@ -34,6 +34,7 @@ public class RequestParser {
     private String idKey = "id";
     private String passengerKey = "passenger";
     private String airportKey = "airport";
+    private String infoServerKey = "info-server";
 
     private String emptyRequestMessage = "empty-request";
     private String unknownRequestMessage = "error,unknown request";
@@ -98,6 +99,18 @@ public class RequestParser {
             throw new Exception(emptyRequestMessage);
         }
 
+        switch (inputHash.get(commandKey)) {
+            case "connect":
+                return connectRequest();
+            case "disconnect":
+                return disconnectRequest();
+            case "undo":
+                return undoRequest();
+            case "redo":
+                return redoRequest();
+            default: break;
+        }
+
         if (!inputHash.containsKey(endingValuesKey)) {
             throw new Exception(unknownRequestMessage);
         }
@@ -113,6 +126,8 @@ public class RequestParser {
                 return deleteReservationRequest(inputHash.get(endingValuesKey));
             case "airport":
                 return airportInfoRequest(inputHash.get(endingValuesKey));
+            case "server":
+                return setAirportInfoRequest(inputHash.get(endingValuesKey));
             default:
                 throw new Exception(unknownRequestMessage);
         }
@@ -278,6 +293,41 @@ public class RequestParser {
         String airport = inputHash.get(airportKey);
 
         return new AirportInfoRequest(airport, database);
+    }
+
+    private ConnectRequest connectRequest() {
+        return new ConnectRequest(database);
+    }
+
+    private DisconnectRequest disconnectRequest() {
+        return new DisconnectRequest();
+    }
+
+    private UndoRequest undoRequest() {
+        return new UndoRequest();
+    }
+
+    private RedoRequest redoRequest() {
+        return new RedoRequest();
+    }
+
+    private SetAirportInfoRequest setAirportInfoRequest(String input) throws Exception {
+        List<Map<String, String>> inputData = csvCoder.readListFromString(input,
+                new String[]{infoServerKey});
+
+        if (inputData.isEmpty()) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        Map<String, String> inputHash = inputData.get(0);
+
+        if (!inputHash.containsKey(infoServerKey)) {
+            throw new Exception(unknownRequestMessage);
+        }
+
+        String infoServer = inputHash.get(infoServerKey);
+
+        return new SetAirportInfoRequest(infoServer, database);
     }
 
 }
