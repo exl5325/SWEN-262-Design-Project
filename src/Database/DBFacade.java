@@ -57,12 +57,14 @@ public class DBFacade {
         }
         else {
             state = new Connected();
+            connected = true;
             return true;
         }
     }
     public boolean disconnect(){
         if(connected){
             state = new Disconnected();
+            connected = false;
             return true;
         }
         return false;

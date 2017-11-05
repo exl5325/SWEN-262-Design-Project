@@ -16,6 +16,10 @@ public class DisconnectRequest implements Request{
         this.db = db;
     }
 
+    /**
+     * attempts to disconnect the user
+     * @return the appropriate response
+     */
     @Override
     public Response request() {
         if(db.disconnect())

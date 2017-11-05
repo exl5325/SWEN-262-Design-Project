@@ -52,7 +52,7 @@ public class UndoManager {
 
         Request request = undoStack.pop();
         redoStack.push(request);
-        return request.request();
+        return request.undo();
     }
 
     /**
@@ -69,7 +69,7 @@ public class UndoManager {
 
         Request request = redoStack.pop();
         undoStack.push(request);
-        return request.request();
+        return request.redo();
     }
 
 }

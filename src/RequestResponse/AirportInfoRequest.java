@@ -18,6 +18,10 @@ public class AirportInfoRequest implements Request{
         this.db = db;
     }
 
+    /**
+     * checks if the airport exists
+     * @return the appropriate response
+     */
     @Override
     public Response request() {
         Airport airport = db.findAirport((airportCode));
