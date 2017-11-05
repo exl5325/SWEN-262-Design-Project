@@ -54,7 +54,19 @@ public class GUI extends Application {
             }
         });
         request.setFont(new Font("Helvetica", 14));
-        b.setTop(tb);
+        //b.setTop(tb);
+        Button newWindow = new Button("New Window");
+        newWindow.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Stage stage = new Stage();
+                try{
+                    GUI anotherInstance = new GUI();
+                    anotherInstance.start(stage);
+                }catch (Exception e){}
+            }
+        });
+        b.setTop(newWindow);
         b.setBottom(buildBottom());
         Scene scene = new Scene(b);
         primaryStage.setTitle("AFRS");
@@ -62,7 +74,7 @@ public class GUI extends Application {
         primaryStage.show();
     }
 
-    public VBox buildBottom(){
+    private VBox buildBottom(){
         HBox hb = new HBox();
         VBox vb = new VBox();
         HBox.setHgrow(terminal,Priority.ALWAYS);
@@ -71,7 +83,7 @@ public class GUI extends Application {
         return vb;
     }
 
-    public HBox buildCenter(){
+    private HBox buildCenter(){
         HBox hb = new HBox();
         VBox subHB = new VBox();
         VBox subHB1 = new VBox();
