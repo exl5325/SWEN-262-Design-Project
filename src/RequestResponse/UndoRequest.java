@@ -11,14 +11,11 @@ import RequestResponse.UndoRedoResponse;
  */
 
 public class UndoRequest implements Request {
-    private UndoManager undoManager;
 
-    public UndoRequest(UndoManager undoManager){
-        this.undoManager = undoManager;
-    }
+    public UndoRequest() {}
 
     @Override
     public Response request() {
-        return undoManager.undo();
+        return UndoManager.shared.undo();
     }
 }

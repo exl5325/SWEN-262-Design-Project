@@ -33,11 +33,18 @@ public class DBFacade {
     public int numberOfSavedItineraries() {
         return state.numberOfSavedItineraries();
     }
+    public Itinerary savedItineraryWithId(int id) {
+        return state.savedItineraryWithId(id);
+    }
 
     //ReservationDB methods
     public boolean createReservation(String passenger, int id){
         return state.createReservation(passenger, id);
     }
+    public boolean createReservation(String passenger, Itinerary itinerary) {
+        return state.createReservation(passenger, itinerary);
+    }
+
     public boolean deleteReservation(String passenger, String origin, String destination) {
         return state.deleteReservation(passenger, origin, destination);
     }

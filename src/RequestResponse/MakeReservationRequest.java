@@ -1,6 +1,7 @@
 package RequestResponse;
 
 import Database.DBFacade;
+import Itinerary.Itinerary;
 
 /**
  * Processes the make reservation request and creates the proper responses based on if there was an error or not.
@@ -13,6 +14,7 @@ public class MakeReservationRequest implements Request {
 
     private String passenger;
     private int id;
+    private Itinerary itinerary;
 
     public MakeReservationRequest(String passenger, int id, DBFacade db){
         this.passenger = passenger;
@@ -26,9 +28,29 @@ public class MakeReservationRequest implements Request {
         if (id <= 0 || db.numberOfSavedItineraries() < id) {
             return new SimpleResponse("error,invalid id");
         }
-        if(db.createReservation(passenger,id)){
+        if(db.createReservation(passenger,id)) {
+            UndoManager.shared.addRequest(this);
+            itinerary = db.savedItineraryWithId(id);
             return new SimpleResponse("reserve,successful");
         }
         return new SimpleResponse("error,duplicate reservation");
     }
+
+    @Override
+    public boolean supportsUndo() {
+        return true;
+    }
+
+    @Override
+    public Response undo() {
+        db.deleteReservation(passenger, itinerary.getOrigin(), itinerary.getDestination());
+        return new UndoRedoResponse("undo", "reserve", passenger, itinerary);
+    }
+
+    @Override
+    public Response redo() {
+        db.createReservation(passenger, itinerary);
+        return new UndoRedoResponse("redo", "reserve", passenger, itinerary);
+    }
+
 }

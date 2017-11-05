@@ -7,14 +7,11 @@ package RequestResponse;
  */
 
 public class RedoRequest implements Request{
-    private UndoManager undoManager;
 
-    public RedoRequest(UndoManager undoManager){
-        this.undoManager = undoManager;
-    }
+    public RedoRequest() {}
 
     @Override
     public Response request() {
-        return undoManager.redo();
+        return UndoManager.shared.redo();
     }
 }
