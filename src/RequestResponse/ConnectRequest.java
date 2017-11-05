@@ -15,9 +15,12 @@ public class ConnectRequest implements Request{
         this.db = db;
     }
 
+    /**
+     * attempts to connect the user
+     * @return the appropriate response
+     */
     @Override
     public Response request() {
-        //check if currentConnections is equal to maximum
         if(db.connect())
             return new SimpleResponse("connect");
         return new SimpleResponse("error,already connected");

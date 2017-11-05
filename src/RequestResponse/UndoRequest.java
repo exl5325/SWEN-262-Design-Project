@@ -14,6 +14,10 @@ public class UndoRequest implements Request {
 
     public UndoRequest() {}
 
+    /**
+     * Has the UndoManager undo the last thing on the stack and return an UndoRedoResponse to this
+     * @return the appropriate response
+     */
     @Override
     public Response request() {
         return UndoManager.shared.undo();

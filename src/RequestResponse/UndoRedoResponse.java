@@ -20,6 +20,10 @@ public class UndoRedoResponse implements Response {
         this.itinerary = itinerary;
     }
 
+    /**
+     * forms the response and iterates through the flights on the itinerary given
+     * @return a String to be presented to the user
+     */
     @Override
     public String outputData() {
         String data = reun + "," + operation + "," + passenger + "," + itinerary.getAirfare() + "," + itinerary.getConnections();

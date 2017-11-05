@@ -3,7 +3,7 @@ package RequestResponse;
 import Database.DBFacade;
 
 /**
- * Processes the connection request and creates the proper response
+ * Processes the set airport information request and creates the proper response
  *
  * Created by peter.audier on 11/2/2017.
  */
@@ -17,6 +17,10 @@ public class SetAirportInfoRequest implements Request{
         this.db = db;
     }
 
+    /*
+    Checks if the server should be local or from the FAA and then tells the database how to act, then creates a
+    response based on if the user asked for a legitimate server or not.
+    */
     @Override
     public Response request(){
         if(server.equals("local"))
