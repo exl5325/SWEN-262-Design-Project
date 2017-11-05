@@ -1,5 +1,7 @@
 package RequestResponse;
 
+import Database.DBFacade;
+
 /**
  * Processes the disconnect request and creates the proper response
  *
@@ -8,10 +10,16 @@ package RequestResponse;
 
 public class DisconnectRequest implements Request{
 
-    public DisconnectRequest(){}
+    private DBFacade db;
+
+    public DisconnectRequest(DBFacade db){
+        this.db = db;
+    }
 
     @Override
     public Response request() {
-        return new SimpleResponse("disconnect");
+        //if(db.disconnect()) //TODO is there a disconnect method to call?
+            return new SimpleResponse("disconnect");
+        //return new SimpleResponse("error,already disconnected");
     }
 }
