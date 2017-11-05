@@ -1,6 +1,7 @@
 package RequestResponse;
 
 import Database.DBFacade;
+import Itinerary.Airport;
 
 /**
  * Processes the airport info request and creates the proper responses based on if there was an error or not.
@@ -17,12 +18,11 @@ public class AirportInfoRequest implements Request{
         this.db = db;
     }
 
-    // checks if the airport is in the database and then creates a response
     @Override
     public Response request() {
-        if(db.findAirport(airportCode)==null)
+        Airport airport = db.findAirport((airportCode));
+        if(airport==null)
             return new SimpleResponse("error,unknown airport");
-        return new SimpleResponse("airport," + db.findAirport(airportCode).getName() + "," +
-                db.findAirport(airportCode).getWeather() + "," + db.findAirport(airportCode).getDelay());
+        return new SimpleResponse("airport,"+airport.getName()+","+airport.getWeather()+","+airport.getDelay());
     }
 }
