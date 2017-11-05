@@ -21,7 +21,7 @@ public class Connected implements ConnectState {
     public Connected(){
         airports = new LocalAirportDB();
         flights = new LocalFlightDB();
-        reservations = new ReservationDB();
+        reservations = ReservationDB.shared;
         itineraries = new ArrayList<>();
         flights_connected = false;
         airports_connected = false;
