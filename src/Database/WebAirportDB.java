@@ -72,7 +72,7 @@ public class WebAirportDB implements AirportDB {
         return response;
     }
 
-    private static Document parseRequest(StringBuilder response){
+    private static Document parseRequest(StringBuilder response)throws java.io.IOException{
         try {
             DocumentBuilderFactory dbf =
                     DocumentBuilderFactory.newInstance();
@@ -162,7 +162,12 @@ public class WebAirportDB implements AirportDB {
         NodeList tempNode = rootElement.getElementsByTagName("Temp");
         Element tempElement = (Element) tempNode.item(0);
         String tempString = getCharacterDataFromElement(tempElement);
-        String dummyWeatherArray[] = {tempString};
+
+        NodeList weatherNode = rootElement.getElementsByTagName("Weather");
+        Element weatherElement = (Element) weatherNode.item(1);
+        String weatherString = getCharacterDataFromElement(weatherElement);
+
+        String dummyWeatherArray[] = {weatherString, tempString};
 
         return new Airport(code, airportName, airportDelayTimeInt, dummyWeatherArray);
     }
