@@ -30,21 +30,10 @@ public class WebAirportDB implements AirportDB {
 
     }
 
-    private static Document connect(String url){
-        try {
-            StringBuilder request = requestURL(url);
-            Document returnDoc = parseRequest(request);
-            return returnDoc;
-        }
-        //TODO: NO CATCH ALLS
-        catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-
-
-
-
+    private static Document connect(String url) throws Exception{
+        StringBuilder request = requestURL(url);
+        Document returnDoc = parseRequest(request);
+        return returnDoc;
     }
 
     private static StringBuilder requestURL(String url) throws IOException {
@@ -141,10 +130,15 @@ public class WebAirportDB implements AirportDB {
         }
     }
     public Airport findAirport(String code){
-        String url = airportInfoStart + code + airportInfoEnd;
-        Document airportDoc = connect(url);
-        Element rootElement = airportDoc.getDocumentElement();
-        return findSingleAirport(rootElement, code);
+        try {
+            String url = airportInfoStart + code + airportInfoEnd;
+            Document airportDoc = connect(url);
+            Element rootElement = airportDoc.getDocumentElement();
+            return findSingleAirport(rootElement, code);
+        }
+        catch (Exception ex){
+            return null;
+        }
     }
 
     private static Airport findSingleAirport(Element rootElement, String code){
