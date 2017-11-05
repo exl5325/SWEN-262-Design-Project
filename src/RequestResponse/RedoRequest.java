@@ -1,7 +1,5 @@
 package RequestResponse;
 
-import Itinerary.Itinerary;
-
 /**
  * Processes the redo request and creates the proper response
  *
@@ -9,17 +7,14 @@ import Itinerary.Itinerary;
  */
 
 public class RedoRequest implements Request{
-    private String operation, passenger;
-    private Itinerary itinerary;
+    private UndoManager undoManager;
 
-    public RedoRequest(String operation, String passenger, Itinerary itinerary){
-        this.operation = operation;
-        this.passenger = passenger;
-        this.itinerary = itinerary;
+    public RedoRequest(UndoManager undoManager){
+        this.undoManager = undoManager;
     }
 
     @Override
     public Response request() {
-        return new UndoRedoResponse("redo",operation,passenger,itinerary);
+        return undoManager.redo();
     }
 }
