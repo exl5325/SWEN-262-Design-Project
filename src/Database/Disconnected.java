@@ -19,9 +19,14 @@ public class Disconnected implements ConnectState {
     public int numberOfSavedItineraries(){
         return 0;
     }
+    public Itinerary savedItineraryWithId(int id) {
+        return null;
+    }
+
     public boolean createReservation(String passenger, int id){
         return false;
     }
+    public boolean createReservation(String passenger, Itinerary itinerary) { return false; }
     public boolean deleteReservation(String passenger, String origin, String destination){
         return false;
     }

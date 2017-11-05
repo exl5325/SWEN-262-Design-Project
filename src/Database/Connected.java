@@ -40,14 +40,21 @@ public class Connected implements ConnectState {
     public int numberOfSavedItineraries() {
         return itineraries.size();
     }
+    public Itinerary savedItineraryWithId(int id) {
+        return itineraries.get(id - 1);
+    }
 
     //ReservationDB methods
     public boolean createReservation(String passenger, int id){
         if(id > itineraries.size()){
             return false;
         }
-        return reservations.createReservation(passenger, itineraries.get(id - 1));
+        return createReservation(passenger, savedItineraryWithId(id));
     }
+    public boolean createReservation(String passenger, Itinerary itinerary) {
+        return reservations.createReservation(passenger, itinerary);
+    }
+
     public boolean deleteReservation(String passenger, String origin, String destination) {
         return reservations.deleteReservation(passenger, origin, destination);
     }

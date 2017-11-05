@@ -12,6 +12,11 @@ public class RedoRequest implements Request{
 
     @Override
     public Response request() {
+<<<<<<< HEAD
+        //TODO
+        return new UndoRedoResponse("redo",operation,passenger,itinerary);
+=======
         return UndoManager.shared.redo();
+>>>>>>> undo
     }
 }
