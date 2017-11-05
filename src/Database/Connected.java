@@ -56,7 +56,7 @@ public class Connected implements ConnectState {
     }
     public boolean connectFlights(){
         if(!flights_connected) {
-            //flights = new WebFlightDB();
+            flights = null;
             flights_connected = true;
             return true;
         }
