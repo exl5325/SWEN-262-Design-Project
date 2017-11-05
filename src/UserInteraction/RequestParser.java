@@ -41,6 +41,7 @@ public class RequestParser {
     private String invalidConnectionLimitMessage = "error,invalid connection limit";
     private String invalidIdMessage = "error,invalid id";
     private String partialRequestMessage = "partial-request";
+    private String getInvalidConnectionMessage = "error,invalid connection";
 
     private String partialRequest = null;
 
@@ -104,6 +105,14 @@ public class RequestParser {
                 return connectRequest();
             case "disconnect":
                 return disconnectRequest();
+            default: break;
+        }
+
+        if (!database.isConnected()) {
+            throw new Exception(getInvalidConnectionMessage);
+        }
+
+        switch (inputHash.get(commandKey)) {
             case "undo":
                 return undoRequest();
             case "redo":
