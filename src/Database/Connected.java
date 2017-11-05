@@ -54,14 +54,6 @@ public class Connected implements ConnectState {
     public List<Reservation> findReservations(String passenger, String origin, String destination){
         return reservations.findReservations(passenger, origin, destination);
     }
-    public boolean connectFlights(){
-        if(!flights_connected) {
-            flights = new WebFlightDB();
-            flights_connected = true;
-            return true;
-        }
-        return false;
-    }
     public boolean connectAirports(){
         if(!airports_connected) {
             airports = new WebAirportDB();
