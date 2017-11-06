@@ -1,6 +1,6 @@
 package RequestResponse;
 
-import Database.DBFacade;
+import Database.DBManager;
 import Itinerary.Reservation;
 
 import java.util.List;
@@ -13,9 +13,9 @@ import java.util.List;
 public class GetReservationRequest implements Request {
 
     private String passenger, origin, destination;
-    private DBFacade db;
+    private DBManager db;
 
-    public GetReservationRequest(String passenger, String origin, String destination, DBFacade db){
+    public GetReservationRequest(String passenger, String origin, String destination, DBManager db){
         this.passenger = passenger;
         this.origin = origin;
         this.destination = destination;

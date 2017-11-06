@@ -12,11 +12,11 @@ import java.util.List;
  *
  * Created by calvinclark on 10/8/17.
  */
-public class DBFacade {
+public class DBManager {
     private ConnectState state;
     private boolean connected;
 
-    public DBFacade(){
+    public DBManager(){
         state = new Disconnected();
         connected = false;
     }

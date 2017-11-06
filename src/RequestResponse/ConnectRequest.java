@@ -1,6 +1,6 @@
 package RequestResponse;
 
-import Database.DBFacade;
+import Database.DBManager;
 
 /**
  * Processes the connection request and creates the proper response
@@ -9,9 +9,9 @@ import Database.DBFacade;
  */
 
 public class ConnectRequest implements Request{
-    private DBFacade db;
+    private DBManager db;
 
-    public ConnectRequest(DBFacade db){
+    public ConnectRequest(DBManager db){
         this.db = db;
     }
 

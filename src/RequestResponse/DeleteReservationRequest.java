@@ -1,6 +1,6 @@
 package RequestResponse;
 
-import Database.DBFacade;
+import Database.DBManager;
 import Itinerary.Itinerary;
 import Itinerary.Reservation;
 
@@ -14,12 +14,12 @@ import java.util.List;
 public class DeleteReservationRequest implements Request {
 
     private String passenger, origin, destination;
-    private DBFacade db;
+    private DBManager db;
 
     // will hold itinerary associated with reservation that was deleted
     private Itinerary itinerary;
 
-    public DeleteReservationRequest(String passenger, String origin, String destination, DBFacade db){
+    public DeleteReservationRequest(String passenger, String origin, String destination, DBManager db){
         this.passenger = passenger;
         this.origin = origin;
         this.destination = destination;
