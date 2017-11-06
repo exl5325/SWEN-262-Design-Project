@@ -19,6 +19,5 @@ public interface ConnectState {
     boolean deleteReservation(String passenger, String origin, String destination);
     List<Reservation> findReservations(String passenger, String origin, String destination);
     boolean connectAirports();
-    boolean disconnectFlights();
     boolean disconnectAirports();
 }

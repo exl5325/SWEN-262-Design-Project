@@ -4,7 +4,6 @@ import Itinerary.Itinerary;
 import Itinerary.Airport;
 import Itinerary.Reservation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,9 +73,6 @@ public class DBManager {
     }
     public void connectAirports(){
         state.connectAirports();
-    }
-    public void disconnectFlights(){
-        state.disconnectFlights();
     }
     public void disconnectAirports(){
         state.disconnectAirports();
