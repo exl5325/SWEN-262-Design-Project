@@ -7,49 +7,17 @@ import java.util.Scanner;
  * the user. It has no knowledge of Requests and Responses themselves and deals only
  * with text.
  *
+ * This class has been modified so that it can interact with the system's GUI
+ *
  * Created by Matt Seaman on 10/10/2017.
+ * Modified by Eric Lin on 11/4/2017
  */
 public class ShellGUI {
-
-    private String prompt = ">>";
-
-    private String startMessage = "Welcome to the Airline Itinerary.Itinerary.Flight Reservation Server (AFRS).";
-
-    private Scanner scanner = new Scanner(System.in);
 
     public RequestParser parser;
 
     public ShellGUI(RequestParser parser) {
         this.parser = parser;
-    }
-
-    /**
-     * Starts the shell's run loop
-     */
-    public void start() {
-        displayLine(startMessage);
-
-        // Main run loop
-        while (true) {
-            displayPrompt();
-
-            String input = receiveLine();
-
-            if (input.isEmpty()) { continue; }
-
-            if (input.equals("exit")) { break; }
-
-            displayLine(outputForInput(input));
-        }
-    }
-
-    /**
-     * Scans the console and returns a user-entered line
-     *
-     * @return A user-entered line of text
-     */
-    public String receiveLine() {
-        return scanner.nextLine();
     }
 
     /**
@@ -60,22 +28,6 @@ public class ShellGUI {
      */
     public String outputForInput(String input) {
         return parser.process(input);
-    }
-
-    /**
-     * Prints the text of the prompt, followed by a space.
-     */
-    public void displayPrompt() {
-        display(prompt, " ");
-    }
-
-    /**
-     * Prints text without a terminator
-     *
-     * @param message: The text to print
-     */
-    public void display(String message) {
-        display(message, "");
     }
 
     /**
@@ -94,10 +46,7 @@ public class ShellGUI {
      * @param terminator: A string to append to the end of the text.
      */
     public String display(String message, String terminator) {
-        //System.out.print(message);
         return message += terminator;
-        //if (terminator != null) {
-        //    System.out.print(terminator);
-        //}
+
     }
 }
