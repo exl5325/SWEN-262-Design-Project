@@ -1,6 +1,6 @@
 package RequestResponse;
 
-import Database.DBFacade;
+import Database.DBManager;
 
 /**
  * Processes the disconnect request and creates the proper response
@@ -10,9 +10,9 @@ import Database.DBFacade;
 
 public class DisconnectRequest implements Request{
 
-    private DBFacade db;
+    private DBManager db;
 
-    public DisconnectRequest(DBFacade db){
+    public DisconnectRequest(DBManager db){
         this.db = db;
     }
 

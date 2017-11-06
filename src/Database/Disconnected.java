@@ -33,13 +33,7 @@ public class Disconnected implements ConnectState {
     public List<Reservation> findReservations(String passenger, String origin, String destination){
         return null;
     }
-    public boolean connectFlights(){
-        return false;
-    }
     public boolean connectAirports(){
-        return false;
-    }
-    public boolean disconnectFlights(){
         return false;
     }
     public boolean disconnectAirports(){

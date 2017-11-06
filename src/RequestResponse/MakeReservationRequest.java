@@ -1,6 +1,6 @@
 package RequestResponse;
 
-import Database.DBFacade;
+import Database.DBManager;
 import Itinerary.Itinerary;
 
 /**
@@ -10,13 +10,13 @@ import Itinerary.Itinerary;
  */
 public class MakeReservationRequest implements Request {
 
-    private DBFacade db;
+    private DBManager db;
 
     private String passenger;
     private int id;
     private Itinerary itinerary;
 
-    public MakeReservationRequest(String passenger, int id, DBFacade db){
+    public MakeReservationRequest(String passenger, int id, DBManager db){
         this.passenger = passenger;
         this.id = id;
         this.db = db;

@@ -1,7 +1,5 @@
 package UserInteraction;
 
-import java.util.Scanner;
-
 /**
  * Shell is a "view" class responsible for console interaction with
  * the user. It has no knowledge of Requests and Responses themselves and deals only

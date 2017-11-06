@@ -1,6 +1,6 @@
 package UserInteraction;
 
-import Database.DBFacade;
+import Database.DBManager;
 import Database.CSVCoder;
 import RequestResponse.*;
 
@@ -18,7 +18,7 @@ public class RequestParser {
     /**
      * An interface to the application's databases.
      */
-    private DBFacade database;
+    private DBManager database;
 
     /**
      * A coder for reading comma-separated values.
@@ -46,7 +46,7 @@ public class RequestParser {
     private String partialRequest = null;
 
     public RequestParser() {
-        this.database = new DBFacade();
+        this.database = new DBManager();
     }
 
     /**

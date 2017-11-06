@@ -4,7 +4,6 @@ import Itinerary.Itinerary;
 import Itinerary.Airport;
 import Itinerary.Reservation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,11 +11,11 @@ import java.util.List;
  *
  * Created by calvinclark on 10/8/17.
  */
-public class DBFacade {
+public class DBManager {
     private ConnectState state;
     private boolean connected;
 
-    public DBFacade(){
+    public DBManager(){
         state = new Disconnected();
         connected = false;
     }
@@ -74,9 +73,6 @@ public class DBFacade {
     }
     public void connectAirports(){
         state.connectAirports();
-    }
-    public void disconnectFlights(){
-        state.disconnectFlights();
     }
     public void disconnectAirports(){
         state.disconnectAirports();
