@@ -69,14 +69,6 @@ public class Connected implements ConnectState {
         }
         return false;
     }
-    public boolean disconnectFlights(){
-        if(flights_connected) {
-            flights = new LocalFlightDB();
-            flights_connected = false;
-            return true;
-        }
-        return false;
-    }
     public boolean disconnectAirports(){
         if(airports_connected) {
             airports = new LocalAirportDB();

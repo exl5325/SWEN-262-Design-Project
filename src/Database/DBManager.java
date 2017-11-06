@@ -75,9 +75,6 @@ public class DBManager {
     public void connectAirports(){
         state.connectAirports();
     }
-    public void disconnectFlights(){
-        state.disconnectFlights();
-    }
     public void disconnectAirports(){
         state.disconnectAirports();
     }
