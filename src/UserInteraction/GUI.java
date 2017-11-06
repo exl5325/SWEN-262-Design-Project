@@ -146,6 +146,8 @@ public class GUI extends Application {
         HBox.setHgrow(responses,Priority.ALWAYS);
         input.setEditable(false);
         responses.setEditable(false);
+        VBox.setVgrow(input,Priority.ALWAYS);
+        VBox.setVgrow(responses,Priority.ALWAYS);
         subHB.getChildren().addAll(yourRequests, input);
         subHB1.getChildren().addAll(yourResponses, responses);
         hb.getChildren().addAll(subHB, subHB1);
