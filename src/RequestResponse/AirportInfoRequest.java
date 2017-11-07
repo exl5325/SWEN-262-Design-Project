@@ -1,6 +1,6 @@
 package RequestResponse;
 
-import Database.DBFacade;
+import Database.DBManager;
 import Itinerary.Airport;
 
 /**
@@ -11,9 +11,9 @@ import Itinerary.Airport;
 public class AirportInfoRequest implements Request{
 
     private String airportCode;
-    private DBFacade db;
+    private DBManager db;
 
-    public AirportInfoRequest(String code, DBFacade db){
+    public AirportInfoRequest(String code, DBManager db){
         airportCode = code;
         this.db = db;
     }

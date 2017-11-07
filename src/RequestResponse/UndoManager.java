@@ -8,11 +8,6 @@ import java.util.Deque;
  */
 public class UndoManager {
 
-    /**
-     * A singleton instance of UndoManager for the system
-     */
-    public static UndoManager shared = new UndoManager();
-
     private Deque<Request> undoStack;
 
     private Deque<Request> redoStack;

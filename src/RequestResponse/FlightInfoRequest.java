@@ -1,6 +1,6 @@
 package RequestResponse;
 
-import Database.DBFacade;
+import Database.DBManager;
 import Itinerary.Itinerary;
 
 import java.util.List;
@@ -11,11 +11,11 @@ import java.util.List;
  * Created by peter.audier on 10/8/2017.
  */
 public class FlightInfoRequest implements Request {
-    private DBFacade db;
+    private DBManager db;
     private String origin,destination,sortOrder;
     private int numConnections;
 
-    public FlightInfoRequest(String origin, String destination, String sortOrder, int numConnections, DBFacade db){
+    public FlightInfoRequest(String origin, String destination, String sortOrder, int numConnections, DBManager db){
         this.origin = origin;
         this.destination = destination;
         this.sortOrder = sortOrder;
