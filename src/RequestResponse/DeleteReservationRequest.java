@@ -15,15 +15,17 @@ public class DeleteReservationRequest implements Request {
 
     private String passenger, origin, destination;
     private DBManager db;
+    private UndoManager undoManager;
 
     // will hold itinerary associated with reservation that was deleted
     private Itinerary itinerary;
 
-    public DeleteReservationRequest(String passenger, String origin, String destination, DBManager db){
+    public DeleteReservationRequest(String passenger, String origin, String destination, DBManager db, UndoManager undoManager){
         this.passenger = passenger;
         this.origin = origin;
         this.destination = destination;
         this.db = db;
+        this.undoManager = undoManager;
     }
 
     // attempts to delete the reservation and returns a response based on if it was successful or not
@@ -31,7 +33,7 @@ public class DeleteReservationRequest implements Request {
     public Response request() {
         List<Reservation> reservations = db.findReservations(passenger, origin, destination);
         if(db.deleteReservation(passenger, origin, destination)) {
-            UndoManager.shared.addRequest(this);
+            undoManager.addRequest(this);
             itinerary = reservations.get(0).getItinerary();
             return new SimpleResponse("delete,successful");
         }

@@ -8,7 +8,11 @@ package RequestResponse;
 
 public class UndoRequest implements Request {
 
-    public UndoRequest() {}
+    private UndoManager undoManager;
+
+    public UndoRequest(UndoManager undoManager) {
+        this.undoManager = undoManager;
+    }
 
     /**
      * Has the UndoManager undo the last thing on the stack and return an UndoRedoResponse to this
@@ -16,6 +20,6 @@ public class UndoRequest implements Request {
      */
     @Override
     public Response request() {
-        return UndoManager.shared.undo();
+        return undoManager.undo();
     }
 }

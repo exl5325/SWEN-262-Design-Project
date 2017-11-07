@@ -21,6 +21,11 @@ public class RequestParser {
     private DBManager database;
 
     /**
+     * An undo manager for this parser.
+     */
+    private UndoManager undoManager;
+
+    /**
      * A coder for reading comma-separated values.
      */
     private CSVCoder csvCoder = new CSVCoder();
@@ -47,6 +52,7 @@ public class RequestParser {
 
     public RequestParser() {
         this.database = new DBManager();
+        this.undoManager = new UndoManager();
     }
 
     /**
@@ -223,7 +229,7 @@ public class RequestParser {
             throw new Exception(invalidIdMessage);
         }
 
-        return new MakeReservationRequest(passenger, id, database);
+        return new MakeReservationRequest(passenger, id, database, undoManager);
     }
 
     private GetReservationRequest getReservationRequest(String input) throws Exception {
@@ -282,7 +288,7 @@ public class RequestParser {
         String origin = inputHash.get(originKey);
         String destination = inputHash.get(destinationKey);
 
-        return new DeleteReservationRequest(passenger, origin, destination, database);
+        return new DeleteReservationRequest(passenger, origin, destination, database, undoManager);
     }
 
     private AirportInfoRequest airportInfoRequest(String input) throws Exception {
@@ -309,15 +315,16 @@ public class RequestParser {
     }
 
     private DisconnectRequest disconnectRequest() {
+        this.undoManager = new UndoManager();
         return new DisconnectRequest(database);
     }
 
     private UndoRequest undoRequest() {
-        return new UndoRequest();
+        return new UndoRequest(undoManager);
     }
 
     private RedoRequest redoRequest() {
-        return new RedoRequest();
+        return new RedoRequest(undoManager);
     }
 
     private SetAirportInfoRequest setAirportInfoRequest(String input) throws Exception {

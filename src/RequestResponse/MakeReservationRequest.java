@@ -11,15 +11,17 @@ import Itinerary.Itinerary;
 public class MakeReservationRequest implements Request {
 
     private DBManager db;
+    private UndoManager undoManager;
 
     private String passenger;
     private int id;
     private Itinerary itinerary;
 
-    public MakeReservationRequest(String passenger, int id, DBManager db){
+    public MakeReservationRequest(String passenger, int id, DBManager db, UndoManager undoManager){
         this.passenger = passenger;
         this.id = id;
         this.db = db;
+        this.undoManager = undoManager;
     }
 
     // checks if the reservation was duplicated or if the id is invalid. Creates a response accordingly.
@@ -29,7 +31,7 @@ public class MakeReservationRequest implements Request {
             return new SimpleResponse("error,invalid id");
         }
         if(db.createReservation(passenger,id)) {
-            UndoManager.shared.addRequest(this);
+            undoManager.addRequest(this);
             itinerary = db.savedItineraryWithId(id);
             return new SimpleResponse("reserve,successful");
         }
