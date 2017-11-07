@@ -25,7 +25,7 @@ public class SetAirportInfoRequest implements Request{
     public Response request(){
         if(server.equals("local"))
             db.disconnectAirports();
-        if(server.equals("faa"))
+        else if(server.equals("faa"))
             db.connectAirports();
         else
             return new SimpleResponse("error,unknown information server");
