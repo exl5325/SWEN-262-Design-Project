@@ -29,7 +29,7 @@ public class SetAirportInfoRequest implements Request{
             db.connectAirports();
         else
             return new SimpleResponse("error,unknown information server");
-        return new SimpleResponse(server + ",successful");
+        return new SimpleResponse("server,successful");
     }
 }
 
