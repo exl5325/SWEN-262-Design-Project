@@ -1,5 +1,5 @@
 # Airline Flight Reservation Server (AFRS)
-###Team 2 Design Project
+### Team 2 Design Project
 
 ## Requirements:
 - Java 8 Installed
