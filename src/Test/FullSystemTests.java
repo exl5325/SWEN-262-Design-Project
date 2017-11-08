@@ -187,6 +187,23 @@ public class FullSystemTests extends TestCase {
                 "Redo did not work: Response of " + response);
     }
 
+    public void testFAA() {
+        send("server,local;");
+        assertResponse("server,successful",
+                "Could not specify local server");
+
+        send("server,faa;");
+        assertResponse("server,successful",
+                "Could not specify faa server");
+
+        send("airport,SJC;");
+        assertTrue(
+                response.startsWith("airport,San Jose International"),
+                "Cannot get airport from FAA."
+        );
+
+    }
+
     public void testDisconnect() {
         send("disconnect;");
         assertResponse("disconnect",
