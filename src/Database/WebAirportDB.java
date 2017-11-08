@@ -59,7 +59,6 @@ public class WebAirportDB implements AirportDB {
 
         // MAKE SURE TO CLOSE YOUR CONNECTION!
         in.close();
-        System.out.println(response.toString());
         return response;
     }
 
