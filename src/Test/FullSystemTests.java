@@ -16,6 +16,16 @@ public class FullSystemTests extends TestCase {
         this.shell = new Shell(parser);
     }
 
+    public void testConnect() {
+        send("connect;");
+        assertResponse("connect",
+                "Did not connect");
+
+        send("connect;");
+        assertResponse("error,already connected",
+                "Duplicate connection not caught");
+    }
+
     public void testInvalidRequest() {
         send("Hello World!;");
         assertResponse("error,unknown request",
@@ -102,20 +112,89 @@ public class FullSystemTests extends TestCase {
                 "Reservation invalid id not caught.");
 
         send("retrieve,Matt;");
-        assertResponse("retrieve,1\n502,SFO,6:00a,LAS,7:37a449,LAS,4:30p,ATL,6:02p647,ATL,7:25p,JFK,10:06p",
+        assertResponse("retrieve,1\n502,SFO,6:00a,LAS,7:37a449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
                 "Retrieving reservation failed with retrieve,Matt.");
 
         send("retrieve,Matt,SFO,JFK;");
-        assertResponse("retrieve,1\n502,SFO,6:00a,LAS,7:37a449,LAS,4:30p,ATL,6:02p647,ATL,7:25p,JFK,10:06p",
+        assertResponse("retrieve,1\n502,SFO,6:00a,LAS,7:37a449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
                 "Retrieving reservation failed with retrieve,Matt,SFO,JFK.");
 
         send("retrieve,Matt,,JFK;");
-        assertResponse("retrieve,1\n502,SFO,6:00a,LAS,7:37a449,LAS,4:30p,ATL,6:02p647,ATL,7:25p,JFK,10:06p",
+        assertResponse("retrieve,1\n502,SFO,6:00a,LAS,7:37a449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
                 "Retrieving reservation failed with retrieve,Matt,,JFK.");
 
         send("delete,Matt,SFO,JFK;");
         assertResponse("delete,successful",
                 "Reservation not deleted.");
+    }
+
+    public void testUndoRedo() {
+        send("disconnect;");
+        send("connect;");
+
+        send("info,SFO,JFK;");
+        assertTrue(
+                response.startsWith("info,242"),
+                "Does not work with info request."
+        );
+
+        send("retrieve,Matt;");
+        assertResponse("retrieve,0",
+                "Did not start undo test with empty reservations.");
+
+        send("undo;");
+        assertResponse("error,no request available",
+                "Tried to undo when there was nothing.");
+
+        send("redo;");
+        assertResponse("error,no request available",
+                "Tried to redo when there was nothing: Response of " + response);
+
+        send("reserve,1,Matt;");
+        assertResponse("reserve,successful",
+                "Reservation did not work.");
+
+        send("retrieve,Matt;");
+        assertResponse("retrieve,1\n502,SFO,6:00a,LAS,7:37a,449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
+                "Retrieving reservation failed with retrieve,Matt.");
+
+        send("undo;");
+        assertResponse("undo,reserve,Matt,857,2,502,SFO,6:00a,LAS,7:37a,449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
+                "Undo did not work: Response of " + response);
+
+        send("undo;");
+        assertResponse("error,no request available",
+                "Tried to undo when there was nothing.");
+
+        send("redo;");
+        assertResponse("redo,reserve,Matt,857,2,502,SFO,6:00a,LAS,7:37a,449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
+                "Redo did not work: Response of " + response);
+
+        send("redo;");
+        assertResponse("error,no request available",
+                "Tried to redo when there was nothing: Response of " + response);
+
+        send("delete,Matt,SFO,JFK;");
+        assertResponse("delete,successful",
+                "Reservation not deleted.");
+
+        send("undo;");
+        assertResponse("undo,delete,Matt,857,2,502,SFO,6:00a,LAS,7:37a,449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
+                "Undo did not work: Response of " + response);
+
+        send("redo;");
+        assertResponse("redo,delete,Matt,857,2,502,SFO,6:00a,LAS,7:37a,449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
+                "Redo did not work: Response of " + response);
+    }
+
+    public void testDisconnect() {
+        send("disconnect;");
+        assertResponse("disconnect",
+                "Did not disconnect.");
+
+        send("disconnect;");
+        assertResponse("error,already disconnected",
+                "Did not handle duplicate disconnection.");
     }
 
     private void assertResponse(String responseText, String failureMessage) {
