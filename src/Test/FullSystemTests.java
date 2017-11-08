@@ -112,15 +112,15 @@ public class FullSystemTests extends TestCase {
                 "Reservation invalid id not caught.");
 
         send("retrieve,Matt;");
-        assertResponse("retrieve,1\n502,SFO,6:00a,LAS,7:37a449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
+        assertResponse("retrieve,1\n857,2,502,SFO,6:00a,LAS,7:37a,449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
                 "Retrieving reservation failed with retrieve,Matt.");
 
         send("retrieve,Matt,SFO,JFK;");
-        assertResponse("retrieve,1\n502,SFO,6:00a,LAS,7:37a449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
+        assertResponse("retrieve,1\n857,2,502,SFO,6:00a,LAS,7:37a,449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
                 "Retrieving reservation failed with retrieve,Matt,SFO,JFK.");
 
         send("retrieve,Matt,,JFK;");
-        assertResponse("retrieve,1\n502,SFO,6:00a,LAS,7:37a449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
+        assertResponse("retrieve,1\n857,2,502,SFO,6:00a,LAS,7:37a,449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
                 "Retrieving reservation failed with retrieve,Matt,,JFK.");
 
         send("delete,Matt,SFO,JFK;");
@@ -155,7 +155,7 @@ public class FullSystemTests extends TestCase {
                 "Reservation did not work.");
 
         send("retrieve,Matt;");
-        assertResponse("retrieve,1\n502,SFO,6:00a,LAS,7:37a,449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
+        assertResponse("retrieve,1\n857,2,502,SFO,6:00a,LAS,7:37a,449,LAS,4:30p,ATL,6:02p,647,ATL,7:25p,JFK,10:06p",
                 "Retrieving reservation failed with retrieve,Matt.");
 
         send("undo;");
