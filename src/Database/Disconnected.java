@@ -7,6 +7,8 @@ import Itinerary.Reservation;
 import java.util.List;
 
 /**
+ * A state representing when DBManager is disconnected from the AFRS system
+ *
  * Created by calvinclark on 11/2/17.
  */
 public class Disconnected implements ConnectState {

@@ -7,6 +7,8 @@ import Itinerary.Reservation;
 import java.util.List;
 
 /**
+ * A state representing whether or not DBManager is connected to the AFRS system
+ *
  * Created by calvinclark on 11/2/17.
  */
 public interface ConnectState {

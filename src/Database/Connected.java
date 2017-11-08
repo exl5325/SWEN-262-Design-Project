@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A state representing when DBManager is connected to the AFRS System
+ *
  * Created by calvinclark on 11/2/17.
  */
 public class Connected implements ConnectState {
@@ -15,7 +17,6 @@ public class Connected implements ConnectState {
     private FlightDB flights;
     private ReservationDB reservations;
     private List<Itinerary> itineraries;
-    private boolean flights_connected;
     private boolean airports_connected;
 
     public Connected(){
@@ -23,7 +24,6 @@ public class Connected implements ConnectState {
         flights = new LocalFlightDB();
         reservations = ReservationDB.shared;
         itineraries = new ArrayList<>();
-        flights_connected = false;
         airports_connected = false;
     }
 

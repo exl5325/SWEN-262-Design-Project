@@ -21,6 +21,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * A proxy class to interact with the FAA web service and retrieve airport information
+ *
  * Created by matthewvogt on 11/3/17.
  */
 public class WebAirportDB implements AirportDB {
